@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+data/raw/*.parquet
+data/raw/*.csv
+data/*.duckdb
+outputs/figures/
+outputs/tables/
+.DS_Store
