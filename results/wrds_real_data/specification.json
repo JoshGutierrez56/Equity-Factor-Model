@@ -1,0 +1,50 @@
+{
+  "schema": "equity-factor-real-data-specification.v1",
+  "specification_sha256": "7df8f1b088429f7aba5ff930175be9bc29a325e514fb7ba76dbaa950c0089eb7",
+  "frozen_at_utc": "2026-07-20T22:20:12.150990+00:00",
+  "frozen_before_holdout_inspection": true,
+  "portfolio_specification_frozen_before_holdout": true,
+  "holdout_pristine": false,
+  "holdout_disclosure": "The portfolio specification was frozen before the 2024 holdout was opened. After inspection, a 24-month minimum-inference guard was added because WRDS contained only one holdout year; returns and portfolio construction were not changed. Treat holdout inference as descriptive.",
+  "audit_history": "A prior 2010-2023 engine-validation run used a 2020 split and exposed a company/share-class continuity issue. No factor orientation, weight, quantile, cost, or liquidity parameter changed. The corrected final specification moves the untouched holdout to 2024-2025.",
+  "request": {
+    "start": "2010-01-01",
+    "end": "2025-12-31",
+    "holdout_start": "2024-01-01",
+    "max_universe": 1000,
+    "min_price": 5.0,
+    "min_market_cap_millions": 100.0,
+    "accounting_lag_months": 6
+  },
+  "model": {
+    "horizons_months": [
+      1,
+      3,
+      6,
+      12
+    ],
+    "transaction_cost_bps": [
+      0.0,
+      10.0,
+      25.0
+    ],
+    "quantile_fraction": 0.2,
+    "winsor_lower": 0.01,
+    "winsor_upper": 0.99,
+    "min_factor_coverage": 4,
+    "min_inference_months": 24,
+    "sector_neutral": true,
+    "factor_columns": [
+      "MOM",
+      "LV",
+      "SIZE",
+      "VALUE",
+      "QUALITY"
+    ],
+    "composite_weights": "equal; fixed ex ante",
+    "research_entity": "CRSP PERMCO company",
+    "share_class_treatment": "aggregate market equity and market-equity-weight monthly returns; largest class carries identifiers",
+    "implementation_lag": "signal at month t; return begins in month t+1",
+    "risk_attribution": "Fama-French five factors plus momentum; HAC(3)"
+  }
+}

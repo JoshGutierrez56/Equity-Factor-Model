@@ -1,0 +1,96 @@
+{
+  "schema": "equity-factor-headline.v1",
+  "specification_sha256": "7df8f1b088429f7aba5ff930175be9bc29a325e514fb7ba76dbaa950c0089eb7",
+  "classification": "NO_VALIDATED_ALPHA",
+  "interpretation": "The fixed composite is directionally positive but weak after costs; factor-adjusted alpha is indistinguishable from zero and the 2024 confirmation is too short for formal inference.",
+  "composite_long_short_10bps": [
+    {
+      "period": "development",
+      "signal": "COMPOSITE",
+      "strategy": "long_short",
+      "cost_bps": 10.0,
+      "n_months": 168,
+      "cagr": 0.009330642706040226,
+      "annualized_volatility": 0.06872835481929648,
+      "sharpe": 0.16930090122916544,
+      "max_drawdown": -0.20134795636169645,
+      "hit_rate": 0.5238095238095238,
+      "average_monthly_turnover": 0.738823119974127,
+      "benchmark_cagr": 0.13562980025054072,
+      "information_ratio_vs_benchmark": -0.697709731569552,
+      "alpha_annualized": 0.030151640084979753,
+      "beta": -0.1330991334770911
+    },
+    {
+      "period": "holdout",
+      "signal": "COMPOSITE",
+      "strategy": "long_short",
+      "cost_bps": 10.0,
+      "n_months": 11,
+      "cagr": 0.01743091282077902,
+      "annualized_volatility": 0.03976314596680442,
+      "sharpe": 0.4529083649629536,
+      "max_drawdown": -0.03435391760800999,
+      "hit_rate": 0.5454545454545454,
+      "average_monthly_turnover": 0.6580607934487557,
+      "benchmark_cagr": 0.2636347930435894,
+      "information_ratio_vs_benchmark": -1.83410694679613,
+      "alpha_annualized": 0.017792113402073886,
+      "beta": 0.0008952808302096718
+    }
+  ],
+  "composite_one_month_ic": [
+    {
+      "period": "development",
+      "factor": "COMPOSITE",
+      "horizon_months": 1,
+      "mean_ic": 0.00970472154808085,
+      "ic_std": 0.07695386138272821,
+      "icir": 0.12611091079386708,
+      "hac_t_stat": 1.625568159455133,
+      "p_value": 0.10404155325655202,
+      "hit_rate": 0.5595238095238095,
+      "n_months": 168,
+      "p_bonferroni": 1.0,
+      "inference_eligible": true,
+      "significant_5pct": false
+    },
+    {
+      "period": "holdout",
+      "factor": "COMPOSITE",
+      "horizon_months": 1,
+      "mean_ic": 0.012058609331007338,
+      "ic_std": 0.05645191743813125,
+      "icir": 0.21360849867009438,
+      "hac_t_stat": 1.0843889218300375,
+      "p_value": 0.27819239352190894,
+      "hit_rate": 0.7272727272727273,
+      "n_months": 11,
+      "p_bonferroni": 1.0,
+      "inference_eligible": false,
+      "significant_5pct": false
+    }
+  ],
+  "development_ff5_momentum_alpha": [
+    {
+      "period": "development",
+      "signal": "COMPOSITE",
+      "strategy": "long_short",
+      "cost_bps": 10.0,
+      "n_months": 168,
+      "alpha_annualized": 0.00024759327227079396,
+      "alpha_hac_t_stat": 0.02290437892591602,
+      "alpha_p_value": 0.9817265474352741,
+      "r_squared": 0.6082258165255041,
+      "inference_eligible": true,
+      "beta_mktrf": -0.07466850219035887,
+      "beta_smb": 0.24650693155848336,
+      "beta_hml": 0.16998039660931874,
+      "beta_rmw": 0.4368629032387893,
+      "beta_cma": 0.09494265448045697,
+      "beta_umd": 0.3248765892565065,
+      "alpha_p_bonferroni": 1.0,
+      "alpha_significant_5pct": false
+    }
+  ]
+}

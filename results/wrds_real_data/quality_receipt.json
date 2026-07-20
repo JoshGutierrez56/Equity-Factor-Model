@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": {
+    "duplicate_company_month_rows": 0,
+    "future_fundamental_rows": 0,
+    "monthly_universe_above_cap": 0,
+    "returns_below_minus_one": 0,
+    "nonfinite_composite_scores": 0
+  },
+  "max_abs_monthly_company_return": 19.883589,
+  "min_monthly_company_return": -0.8258079999999999,
+  "max_monthly_company_return": 19.883589
+}

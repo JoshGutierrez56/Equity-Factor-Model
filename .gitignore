@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 data/raw/*.parquet
 data/raw/*.csv
+data/private/
 data/*.duckdb
 outputs/figures/
 outputs/tables/

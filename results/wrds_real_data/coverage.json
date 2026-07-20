@@ -1,0 +1,13 @@
+{
+  "start_date": "2010-01-29",
+  "end_date": "2024-12-31",
+  "months": 180,
+  "unique_securities": 2371,
+  "unique_companies": 2351,
+  "average_monthly_universe": 1000.0,
+  "median_monthly_universe": 1000.0,
+  "fundamental_coverage": 0.9752555555555555,
+  "composite_coverage": 0.9727055555555556,
+  "development_months": 168,
+  "holdout_months": 12
+}
