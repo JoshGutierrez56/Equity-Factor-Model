@@ -35,7 +35,17 @@ OUT_DIR = Path("outputs")
 SECTORS = ["Apartment", "Industrial", "Retail", "Office"]
 
 
+def _configure_console() -> None:
+    """Keep Unicode status output from crashing on legacy Windows consoles."""
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, OSError):
+            pass
+
+
 def main(args: argparse.Namespace) -> None:
+    _configure_console()
     sys.path.insert(0, "src")
     from factors.universe   import get_sp500_tickers, download_prices, download_market_cap, _FALLBACK_TICKERS
     from factors.signals    import FactorBuilder
@@ -57,7 +67,10 @@ def main(args: argparse.Namespace) -> None:
         tickers = _FALLBACK_TICKERS
         logger.warning("Offline mode: using %d fallback tickers (no download)", len(tickers))
         prices = _synthetic_prices(tickers, args.start, args.end)
-        market_cap = pd.Series({t: np.random.lognormal(10, 1) for t in tickers})
+        cap_rng = np.random.default_rng(43)
+        market_cap = pd.Series(
+            cap_rng.lognormal(10, 1, size=len(tickers)), index=tickers
+        )
     else:
         tickers    = get_sp500_tickers()
         prices     = download_prices(tickers, start=args.start, end=args.end)
