@@ -1,95 +1,101 @@
 {
-  "schema": "equity-factor-headline.v1",
-  "specification_sha256": "7df8f1b088429f7aba5ff930175be9bc29a325e514fb7ba76dbaa950c0089eb7",
+  "schema": "equity-factor-headline.v2",
+  "specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
   "classification": "NO_VALIDATED_ALPHA",
-  "interpretation": "The fixed composite is directionally positive but weak after costs; factor-adjusted alpha is indistinguishable from zero and the 2024 confirmation is too short for formal inference.",
-  "composite_long_short_10bps": [
+  "interpretation": "All current evidence is retrospective. Hypotheses are evaluated with predeclared primary horizons, multiple-testing control, block bootstrap, era stability, and monotonicity gates. No prospective alpha claim is made.",
+  "prospective_validation_status": "NOT_STARTED",
+  "primary_hypothesis_classifications": [
     {
-      "period": "development",
-      "signal": "COMPOSITE",
-      "strategy": "long_short",
-      "cost_bps": 10.0,
-      "n_months": 168,
-      "cagr": 0.009330642706040226,
-      "annualized_volatility": 0.06872835481929648,
-      "sharpe": 0.16930090122916544,
-      "max_drawdown": -0.20134795636169645,
-      "hit_rate": 0.5238095238095238,
-      "average_monthly_turnover": 0.738823119974127,
-      "benchmark_cagr": 0.13562980025054072,
-      "information_ratio_vs_benchmark": -0.697709731569552,
-      "alpha_annualized": 0.030151640084979753,
-      "beta": -0.1330991334770911
+      "factor": "COMPOSITE",
+      "classification": "RETROSPECTIVELY_SUPPORTED"
     },
     {
-      "period": "holdout",
-      "signal": "COMPOSITE",
-      "strategy": "long_short",
-      "cost_bps": 10.0,
-      "n_months": 11,
-      "cagr": 0.01743091282077902,
-      "annualized_volatility": 0.03976314596680442,
-      "sharpe": 0.4529083649629536,
-      "max_drawdown": -0.03435391760800999,
-      "hit_rate": 0.5454545454545454,
-      "average_monthly_turnover": 0.6580607934487557,
-      "benchmark_cagr": 0.2636347930435894,
-      "information_ratio_vs_benchmark": -1.83410694679613,
-      "alpha_annualized": 0.017792113402073886,
-      "beta": 0.0008952808302096718
-    }
-  ],
-  "composite_one_month_ic": [
-    {
-      "period": "development",
-      "factor": "COMPOSITE",
-      "horizon_months": 1,
-      "mean_ic": 0.00970472154808085,
-      "ic_std": 0.07695386138272821,
-      "icir": 0.12611091079386708,
-      "hac_t_stat": 1.625568159455133,
-      "p_value": 0.10404155325655202,
-      "hit_rate": 0.5595238095238095,
-      "n_months": 168,
-      "p_bonferroni": 1.0,
-      "inference_eligible": true,
-      "significant_5pct": false
+      "factor": "INVESTMENT",
+      "classification": "DIRECTIONAL_BUT_NOT_VALIDATED"
     },
     {
-      "period": "holdout",
-      "factor": "COMPOSITE",
-      "horizon_months": 1,
-      "mean_ic": 0.012058609331007338,
-      "ic_std": 0.05645191743813125,
-      "icir": 0.21360849867009438,
-      "hac_t_stat": 1.0843889218300375,
-      "p_value": 0.27819239352190894,
-      "hit_rate": 0.7272727272727273,
-      "n_months": 11,
-      "p_bonferroni": 1.0,
-      "inference_eligible": false,
-      "significant_5pct": false
+      "factor": "LV",
+      "classification": "DIRECTIONAL_BUT_NOT_VALIDATED"
+    },
+    {
+      "factor": "MOM",
+      "classification": "DIRECTIONAL_BUT_NOT_VALIDATED"
+    },
+    {
+      "factor": "QUALITY",
+      "classification": "RETROSPECTIVELY_SUPPORTED"
+    },
+    {
+      "factor": "SIZE",
+      "classification": "DIRECTION_REJECTED"
+    },
+    {
+      "factor": "VALUE",
+      "classification": "DIRECTIONAL_BUT_NOT_VALIDATED"
     }
   ],
-  "development_ff5_momentum_alpha": [
+  "composite_continuous_long_short_10bps": [
     {
-      "period": "development",
+      "period": "retrospective",
       "signal": "COMPOSITE",
-      "strategy": "long_short",
+      "strategy": "continuous_long_short",
       "cost_bps": 10.0,
-      "n_months": 168,
-      "alpha_annualized": 0.00024759327227079396,
-      "alpha_hac_t_stat": 0.02290437892591602,
-      "alpha_p_value": 0.9817265474352741,
-      "r_squared": 0.6082258165255041,
+      "n_months": 419,
+      "cagr": 0.041088676880511654,
+      "annualized_volatility": 0.09624948729166845,
+      "sharpe": 0.46645606938985035,
+      "max_drawdown": -0.2661788335778469,
+      "hit_rate": 0.5584725536992841,
+      "average_monthly_turnover": 0.6569061063494032,
+      "benchmark_cagr": 0.11065465477071323,
+      "information_ratio_vs_benchmark": -0.3397368778451288,
+      "alpha_annualized": 0.07895730381182849,
+      "beta": -0.29203333993937464
+    }
+  ],
+  "composite_primary_twelve_month_ic": [
+    {
+      "period": "retrospective",
+      "factor": "COMPOSITE",
+      "horizon_months": 12,
+      "mean_ic": 0.042245161502654366,
+      "ic_std": 0.09048139274430671,
+      "icir": 0.466893360296032,
+      "hac_t_stat": 3.1848441889817534,
+      "p_value": 0.0014483196531260725,
+      "bootstrap_ci_lower": 0.018453080591018065,
+      "bootstrap_ci_upper": 0.06871513217153256,
+      "hit_rate": 0.6666666666666666,
+      "n_months": 408,
+      "test_family": "primary",
+      "primary_hypothesis": true,
+      "p_holm": 0.010138237571882508,
+      "minimum_required_months": 24,
       "inference_eligible": true,
-      "beta_mktrf": -0.07466850219035887,
-      "beta_smb": 0.24650693155848336,
-      "beta_hml": 0.16998039660931874,
-      "beta_rmw": 0.4368629032387893,
-      "beta_cma": 0.09494265448045697,
-      "beta_umd": 0.3248765892565065,
-      "alpha_p_bonferroni": 1.0,
+      "significant_5pct": true
+    }
+  ],
+  "retrospective_ff5_momentum_alpha": [
+    {
+      "period": "retrospective",
+      "signal": "COMPOSITE",
+      "strategy": "continuous_long_short",
+      "cost_bps": 10.0,
+      "n_months": 419,
+      "alpha_annualized": 0.010607455092654247,
+      "alpha_hac_t_stat": 1.1005491087567487,
+      "alpha_p_value": 0.2710929450696361,
+      "r_squared": 0.7421634797033219,
+      "minimum_required_months": 24,
+      "inference_eligible": true,
+      "test_family": "primary",
+      "beta_mktrf": -0.1098432106682531,
+      "beta_smb": 0.14537596205821976,
+      "beta_hml": 0.23798768516677493,
+      "beta_rmw": 0.5827696750973907,
+      "beta_cma": 0.2499521720884095,
+      "beta_umd": 0.1339245956319631,
+      "alpha_p_holm": 0.2710929450696361,
       "alpha_significant_5pct": false
     }
   ]

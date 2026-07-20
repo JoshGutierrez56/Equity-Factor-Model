@@ -1,16 +1,16 @@
 {
   "schema": "equity-factor-private-data-manifest.v1",
-  "generated_at_utc": "2026-07-20T22:26:49.295230+00:00",
-  "specification_sha256": "7df8f1b088429f7aba5ff930175be9bc29a325e514fb7ba76dbaa950c0089eb7",
+  "generated_at_utc": "2026-07-20T23:23:25.090805+00:00",
+  "specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
   "licensed_rows_committed": false,
   "source": "ignored_private_cache",
-  "crsp_rows": 761077,
-  "compustat_rows": 105763,
-  "fama_french_rows": 192,
-  "panel_rows": 180000,
+  "crsp_rows": 2175360,
+  "compustat_rows": 249131,
+  "fama_french_rows": 432,
+  "panel_rows": 420000,
   "private_input_hashes": {
-    "crsp_monthly_sha256": "0aa8dd75f00238f62d35205c07187d497bdbb2063bf5dca83a16679d95dfa611",
-    "compustat_annual_sha256": "89755d1323884dc8df500f81882ef784d344100a36201e4e39abcb0e78e42891",
-    "fama_french_monthly_sha256": "5b4ed72a5085730825e038711fb77ac7b1ff43e898e4527d079fb7ae8fe2d57c"
+    "crsp_monthly_sha256": "a029fdf5e0f5d7da81eefe32d66dbc4593869abe361b4a0d9788dcb84c5e3b61",
+    "compustat_annual_sha256": "7079edc7e751d3064d44105d94f6e070300a4739296d959359eca8cff4516fa2",
+    "fama_french_monthly_sha256": "4303b443b3b5b9def041d59bf4a38dc346d05c1834110736a4fc36a4ed3d54bf"
   }
 }

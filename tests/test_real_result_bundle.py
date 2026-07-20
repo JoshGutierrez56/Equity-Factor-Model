@@ -18,6 +18,9 @@ def test_real_result_bundle_is_complete_and_self_consistent():
         "README.md", "specification.json", "data_manifest.json", "coverage.json",
         "quality_receipt.json", "headline_summary.json", "ic_summary.csv", "portfolio_summary.csv",
         "factor_attribution.csv", "monthly_portfolio_returns.csv",
+        "research_protocol.json", "hypothesis_tests.csv", "era_stability.csv",
+        "quantile_diagnostics.csv", "primary_hypothesis_ic.png",
+        "composite_cost_sensitivity.png", "era_stability_heatmap.png",
     }
     assert required.issubset({path.name for path in RESULTS.iterdir()})
     specification = json.loads((RESULTS / "specification.json").read_text(encoding="utf-8"))
@@ -25,7 +28,8 @@ def test_real_result_bundle_is_complete_and_self_consistent():
     assert specification["specification_sha256"] == specification_hash(
         request, RealModelSpec()
     )
-    assert specification["portfolio_specification_frozen_before_holdout"] is True
+    assert specification["protocol_frozen_before_prospective_data"] is True
+    assert specification["prospective_status"] == "NOT_STARTED"
 
 
 def test_real_result_bundle_contains_no_security_level_identifiers():
@@ -38,14 +42,14 @@ def test_real_result_bundle_contains_no_security_level_identifiers():
     assert all(len(value) == 64 for value in manifest["private_input_hashes"].values())
 
 
-def test_short_holdout_is_never_labeled_formally_significant():
+def test_short_prospective_sample_is_never_labeled_formally_significant():
     ic = pd.read_csv(RESULTS / "ic_summary.csv")
-    short = ic[(ic["period"] == "holdout") & (ic["n_months"] < 24)]
+    short = ic[(ic["period"] == "prospective") & (ic["n_months"] < 36)]
     assert not short["inference_eligible"].any()
     assert not short["significant_5pct"].any()
     attribution = pd.read_csv(RESULTS / "factor_attribution.csv")
     short_alpha = attribution[
-        (attribution["period"] == "holdout") & (attribution["n_months"] < 24)
+        (attribution["period"] == "prospective") & (attribution["n_months"] < 36)
     ]
     assert not short_alpha["inference_eligible"].any()
     assert not short_alpha["alpha_significant_5pct"].any()
@@ -60,3 +64,4 @@ def test_quality_receipt_passes_all_hard_gates():
 def test_headline_does_not_claim_validated_alpha():
     headline = json.loads((RESULTS / "headline_summary.json").read_text(encoding="utf-8"))
     assert headline["classification"] == "NO_VALIDATED_ALPHA"
+    assert headline["prospective_validation_status"] == "NOT_STARTED"

@@ -9,10 +9,13 @@ import pytest
 from factors.real_model import (
     RealModelSpec,
     build_point_in_time_panel,
+    compute_era_stability,
     compute_factor_attribution,
+    compute_hypothesis_summary,
     compute_ic_summary,
     compute_monthly_portfolios,
     compute_portfolio_summary,
+    compute_quantile_diagnostics,
     public_monthly_results,
     quality_receipt,
     specification_hash,
@@ -22,6 +25,7 @@ from factors.wrds_data import (
     build_compustat_query,
     build_crsp_monthly_query,
     build_fama_french_query,
+    normalize_compustat,
     normalize_crsp_monthly,
     normalize_fama_french,
 )
@@ -96,6 +100,8 @@ def test_queries_include_delisting_and_point_in_time_link_contracts():
     assert "(1.0" not in crsp_query  # return composition is validated in Python
     assert "names.shrcd IN (10, 11)" in crsp_query
     assert "crsp.ccmxpf_linktable" in comp_query
+    assert "funda.pdate" in comp_query
+    assert "funda.fdate" in comp_query
     assert "link.linktype IN ('LC', 'LU')" in comp_query
     assert "ff.fivefactors_monthly" in build_fama_french_query(_request())
     assert "password" not in (crsp_query + comp_query).lower()
@@ -118,6 +124,16 @@ def test_delisting_return_is_compounded_not_added():
     }])
     normalized = normalize_crsp_monthly(rows)
     assert normalized.loc[0, "total_ret"] == pytest.approx(-0.55)
+
+
+def test_compustat_preliminary_date_precedes_conservative_fallback():
+    _, fundamentals = _mock_inputs(n_securities=1)
+    rows = fundamentals.iloc[[0]].copy()
+    rows["pdate"] = rows["datadate"] + pd.Timedelta(days=75)
+    rows["fdate"] = rows["datadate"] + pd.Timedelta(days=100)
+    normalized = normalize_compustat(rows, lag_months=6)
+    assert normalized.loc[0, "availability_date"] == rows.iloc[0]["pdate"]
+    assert normalized.loc[0, "availability_source"] == "compustat_pdate"
 
 
 def test_share_classes_are_consolidated_at_company_level():
@@ -151,9 +167,9 @@ def test_panel_respects_accounting_lag_and_holdout_boundary():
     panel = build_point_in_time_panel(crsp, fundamentals, _request(), RealModelSpec())
     available = panel.dropna(subset=["availability_date"])
     assert (available["availability_date"] <= available["date"]).all()
-    assert set(panel["period"]) == {"development", "holdout"}
-    assert panel.loc[panel["period"] == "development", "date"].max() < pd.Timestamp("2021-01-01")
-    assert panel.loc[panel["period"] == "holdout", "date"].min() >= pd.Timestamp("2021-01-01")
+    assert set(panel["period"]) == {"retrospective", "prospective"}
+    assert panel.loc[panel["period"] == "retrospective", "date"].max() < pd.Timestamp("2021-01-01")
+    assert panel.loc[panel["period"] == "prospective", "date"].min() >= pd.Timestamp("2021-01-01")
     assert quality_receipt(panel, _request())["status"] == "PASS"
 
 
@@ -162,6 +178,7 @@ def test_panel_has_real_fundamental_signals_and_sector_neutral_scores():
     panel = build_point_in_time_panel(crsp, fundamentals, _request(), RealModelSpec())
     assert panel["VALUE"].notna().any()
     assert panel["QUALITY"].notna().any()
+    assert panel["INVESTMENT"].notna().any()
     assert panel["COMPOSITE"].notna().mean() > 0.90
     by_date = panel.dropna(subset=["VALUE_SCORE"]).groupby("date")["VALUE_SCORE"].mean()
     assert (by_date.abs() < 1e-10).all()
@@ -173,6 +190,7 @@ def test_portfolios_apply_costs_and_publish_no_security_identifiers():
     panel = build_point_in_time_panel(crsp, fundamentals, _request(), spec)
     monthly = compute_monthly_portfolios(panel, spec)
     assert not monthly.empty
+    assert "continuous_long_short" in set(monthly["strategy"])
     same = monthly[
         (monthly["signal"] == "COMPOSITE")
         & (monthly["strategy"] == "long_only")
@@ -191,12 +209,14 @@ def test_ic_and_performance_outputs_are_period_labeled():
     panel = build_point_in_time_panel(crsp, fundamentals, _request(), spec)
     ic = compute_ic_summary(panel, spec)
     portfolio = compute_portfolio_summary(compute_monthly_portfolios(panel, spec))
-    assert {"development", "holdout", "full"}.issubset(set(ic["period"]))
-    assert {"development", "holdout", "full"}.issubset(set(portfolio["period"]))
+    assert {"retrospective", "prospective", "full"}.issubset(set(ic["period"]))
+    assert {"retrospective", "prospective", "full"}.issubset(set(portfolio["period"]))
     assert portfolio["sharpe"].notna().any()
-    short_holdout = ic[(ic["period"] == "holdout") & (ic["n_months"] < 24)]
-    assert not short_holdout["inference_eligible"].any()
-    assert not short_holdout["significant_5pct"].any()
+    short_prospective = ic[(ic["period"] == "prospective") & (ic["n_months"] < 36)]
+    assert not short_prospective["inference_eligible"].any()
+    assert not short_prospective["significant_5pct"].any()
+    assert {"primary", "exploratory"}.issubset(set(ic["test_family"]))
+    assert "p_holm" in ic.columns
 
 
 def test_factor_attribution_is_aggregate_and_period_labeled():
@@ -217,5 +237,21 @@ def test_factor_attribution_is_aggregate_and_period_labeled():
     })
     attribution = compute_factor_attribution(monthly, ff, spec)
     assert not attribution.empty
-    assert {"development", "holdout", "full"}.issubset(attribution["period"])
+    assert {"retrospective", "prospective", "full"}.issubset(attribution["period"])
     assert "permno" not in attribution.columns
+
+
+def test_hypothesis_ledger_adds_era_and_monotonicity_gates():
+    crsp, fundamentals = _mock_inputs()
+    spec = RealModelSpec(bootstrap_repetitions=50, bootstrap_block_months=6)
+    panel = build_point_in_time_panel(crsp, fundamentals, _request(), spec)
+    ic = compute_ic_summary(panel, spec)
+    eras = compute_era_stability(panel, spec)
+    quantiles = compute_quantile_diagnostics(panel, spec)
+    hypotheses = compute_hypothesis_summary(ic, eras, quantiles)
+    assert not hypotheses.empty
+    assert {
+        "direction_gate", "holm_significance_gate", "bootstrap_gate",
+        "era_stability_gate", "monotonicity_gate", "classification",
+    }.issubset(hypotheses.columns)
+    assert set(hypotheses["prospective_validation_status"]) == {"NOT_STARTED"}

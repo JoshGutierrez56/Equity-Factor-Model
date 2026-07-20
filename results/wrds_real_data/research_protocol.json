@@ -1,0 +1,61 @@
+{
+  "schema": "equity-factor-research-protocol.v1",
+  "specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
+  "frozen_at_utc": "2026-07-20T23:07:55.054524+00:00",
+  "hypotheses": {
+    "MOM": {
+      "primary_horizon_months": 6,
+      "expected_sign": 1,
+      "rationale": "Intermediate-horizon return continuation."
+    },
+    "LV": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "The low-risk anomaly predicts higher risk-adjusted returns."
+    },
+    "SIZE": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "Smaller eligible companies may earn a size premium."
+    },
+    "VALUE": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "High book-to-market firms may earn a value premium."
+    },
+    "QUALITY": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "Gross profitability predicts persistent operating quality."
+    },
+    "INVESTMENT": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "Conservative asset growth may outperform aggressive investment."
+    },
+    "COMPOSITE": {
+      "primary_horizon_months": 12,
+      "expected_sign": 1,
+      "rationale": "A fixed diversified blend should improve signal breadth."
+    }
+  },
+  "primary_portfolio": {
+    "signal": "COMPOSITE",
+    "strategy": "continuous_long_short",
+    "cost_bps": 10.0
+  },
+  "retrospective_gates": [
+    "expected IC direction",
+    "Holm-adjusted p < 0.05 within the primary family",
+    "95% moving-block bootstrap interval excludes zero",
+    "monthly IC hit rate >= 55%",
+    "expected direction in >= 75% of calendar eras",
+    "quintile-return monotonicity Spearman >= 0.50"
+  ],
+  "prospective_policy": {
+    "start": "2025-01-01",
+    "minimum_months": 36,
+    "status": "NOT_STARTED",
+    "rule": "Do not call any result prospective unless the observation was unavailable when this protocol hash was frozen. No parameter changes are permitted before the minimum window closes."
+  }
+}

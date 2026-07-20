@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import date
+import os
 from pathlib import Path
 from typing import Any
 
@@ -44,8 +45,8 @@ class WRDSResearchRequest:
             raise ValueError("start must be before end")
         if not start_date < holdout_date <= end_date:
             raise ValueError("holdout_start must fall inside the sample")
-        if (end_date - start_date).days > 365 * 30:
-            raise ValueError("research window is capped at 30 years")
+        if (end_date - start_date).days > 365.25 * 40:
+            raise ValueError("research window is capped at 40 years")
         if not 100 <= int(max_universe) <= 5000:
             raise ValueError("max_universe must be between 100 and 5000")
         if min_price <= 0 or min_market_cap_millions <= 0:
@@ -125,6 +126,8 @@ def build_compustat_query(request: WRDSResearchRequest) -> str:
         SELECT CAST(link.lpermno AS INTEGER) AS permno,
                funda.gvkey,
                funda.datadate,
+               funda.pdate,
+               funda.fdate,
                funda.fyear,
                funda.at,
                funda.lt,
@@ -173,6 +176,9 @@ def connect_wrds():
         import wrds
     except ImportError as exc:  # pragma: no cover - live dependency
         raise RuntimeError("Install requirements-live.txt before using WRDS") from exc
+    username = os.environ.get("WRDS_USERNAME")
+    if username:
+        return wrds.Connection(wrds_username=username, verbose=False)
     return wrds.Connection(verbose=False)
 
 
@@ -210,9 +216,28 @@ def normalize_compustat(rows: pd.DataFrame, lag_months: int = 6) -> pd.DataFrame
     missing = required.difference(rows.columns)
     if missing:
         raise ValueError(f"Compustat rows missing columns: {sorted(missing)}")
-    frame = rows.loc[:, sorted(required)].copy()
+    optional_dates = {column for column in ("pdate", "fdate") if column in rows.columns}
+    selected = sorted(required | optional_dates)
+    frame = rows.loc[:, selected].copy()
     frame["datadate"] = pd.to_datetime(frame["datadate"], errors="raise")
-    frame["availability_date"] = frame["datadate"] + pd.DateOffset(months=lag_months)
+    conservative_fallback = frame["datadate"] + pd.DateOffset(months=lag_months)
+    if optional_dates:
+        preliminary = pd.to_datetime(
+            frame.get("pdate", pd.Series(pd.NaT, index=frame.index)), errors="coerce"
+        ).where(lambda values: values >= frame["datadate"])
+        final = pd.to_datetime(
+            frame.get("fdate", pd.Series(pd.NaT, index=frame.index)), errors="coerce"
+        ).where(lambda values: values >= frame["datadate"])
+        reported = preliminary.fillna(final)
+        frame["availability_date"] = reported.fillna(conservative_fallback)
+        frame["availability_source"] = np.select(
+            [preliminary.notna(), final.notna()],
+            ["compustat_pdate", "compustat_fdate"],
+            default="six_month_fallback",
+        )
+    else:
+        frame["availability_date"] = conservative_fallback
+        frame["availability_source"] = "six_month_fallback"
     for column in required.difference({"permno", "gvkey", "datadate"}):
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
     frame = frame.dropna(subset=["permno", "gvkey", "datadate"])
