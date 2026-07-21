@@ -1,0 +1,87 @@
+{
+  "schema": "equity-factor-institutional-v4-protocol.v1",
+  "status": "FROZEN_BEFORE_V4_RETURN_EVALUATION",
+  "frozen_at_utc": "2026-07-21T01:55:00Z",
+  "experiment_classification": "RETROSPECTIVE_POST_RESULT_SIGNAL_AND_TURNOVER_FOLLOW_UP",
+  "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
+  "institutional_v4_sha256": "4ef019d8c6dc7bd02860e806c73a49b0b24b140638100b3184b282d83284f400",
+  "frozen_artifact_hashes": {
+    "v3_portfolio_summary_sha256": "e21f38fd39d6400d66de754724c5c0ad3c8f6c1a86678dddd2704cd944dc35ae",
+    "v3_comparison_receipt_sha256": "1378e152ea495792687a7660cea81dde4cad5c6083f8ae98b66d2d8b400609de",
+    "v3_artifact_manifest_sha256": "d361eb112509019522d00795f6a0a92d333a0f10c6ff75a66bd98e50313f6371",
+    "baseline_ic_summary_sha256": "2ae465fbd8b71f4984fa993e12117e3b2130687180675f6dc0379306afa8b5be"
+  },
+  "performance_informed_diagnosis": [
+    "The v3 result revealed excessive membership-driven turnover.",
+    "The equal-weight composite's SIZE component conflicts structurally with an explicit size-neutral portfolio.",
+    "All data through 2024 have already been inspected; this experiment cannot create a pristine holdout."
+  ],
+  "locked_signal_design": {
+    "features": ["MOM_SCORE", "LV_SCORE", "VALUE_SCORE", "QUALITY_SCORE", "INVESTMENT_SCORE"],
+    "excluded_feature": "SIZE_SCORE",
+    "exclusion_reason": "SIZE is an explicit risk constraint, so it is excluded from the alpha forecast rather than added and then residualized away.",
+    "training_dates": "2010-01-01 through 2019-12-31 only",
+    "training_objective": "mean monthly Spearman IC averaged uniformly across 1, 3, 6, and 12-month horizons",
+    "weight_rule": "clip development mean IC at zero, normalize, then shrink 50% toward equal weights",
+    "hyperparameter_search": "none"
+  },
+  "locked_portfolio_design": {
+    "risk_pool_count": 500,
+    "entry_rank_count": 200,
+    "exit_rank_count": 500,
+    "holding_buffer": "existing positions are explicitly carried into the next point-in-time risk pool and remain eligible through absolute residual-score rank 500; new entries require rank 200 or better",
+    "maximum_monthly_turnover": 0.75,
+    "gross_exposure": 2.0,
+    "maximum_absolute_weight": 0.02,
+    "absolute_beta_tolerance": 0.05,
+    "absolute_size_tolerance": 0.05,
+    "absolute_sector_tolerance": 0.04,
+    "capacity_limit": "absolute position <= min(2%, 10% of lagged median ADV / $100m)",
+    "optimizer_parameters": {
+      "expected_return_scale": 0.006,
+      "risk_aversion": 3.0,
+      "turnover_penalty": 0.001
+    },
+    "optimizer_parameter_source": "unchanged from the pre-2020-selected v3 assertive candidate"
+  },
+  "locked_cost_model": {
+    "spread": "lagged CRSP closing bid/ask with the unchanged conservative fallback and two-basis-point floor",
+    "market_impact": "0.10 times daily volatility times square root of trade dollars over median ADV",
+    "primary_aum_usd": 100000000.0,
+    "primary_borrow_bps_annual": 150.0,
+    "stress_aum_usd": [10000000.0, 100000000.0, 500000000.0],
+    "stress_borrow_bps_annual": [50.0, 150.0, 300.0]
+  },
+  "locked_reporting": {
+    "temporal_assessment": "2021-01-01 through 2024-12-31; retrospective, not pristine",
+    "sharpe": "monthly net returns annualized by square-root of 12",
+    "ic": "monthly Spearman rank IC at 1, 3, 6, and 12 months",
+    "icir": "mean monthly rank IC divided by monthly rank-IC standard deviation",
+    "factor_residual_information_ratio": "annualized FF5+momentum regression intercept divided by annualized residual volatility",
+    "benchmark_relative_ir": "retained for transparency but not used as the main IR for a dollar-neutral sleeve"
+  },
+  "acceptance_gates": [
+    "primary net Sharpe exceeds both matched frozen baseline and v3",
+    "primary average turnover does not exceed the matched frozen baseline",
+    "temporal-assessment V4_SCORE IC exceeds COMPOSITE IC at the same horizon",
+    "factor-residual information ratio exceeds matched frozen baseline",
+    "all exposure, position, capacity, solver, and privacy checks pass",
+    "paired 12-month moving-block Sharpe interval versus baseline is reported regardless of outcome"
+  ],
+  "amendment_policy": "Only performance-uninformed feasibility amendments may occur before any v4 return or IC result is inspected. Every amendment must record the prior hash and reason.",
+  "amendment_history": [
+    {
+      "reason": "The constraint-only path stopped at 2010-03-31 because a rank-400 exit band forced 0.382081 of existing gross exposure out, leaving insufficient turnover capacity to restore the frozen neutralities under the 0.75 ceiling. No v4 forward return, IC, Sharpe, IR, or public result artifact had been computed or inspected.",
+      "change": "Widen only the existing-holding retention band from absolute residual-score rank 400 to rank 500, which is the already-frozen risk-pool boundary. The rank-200 new-entry rule, 0.75 turnover ceiling, signal weights, costs, exposures, and optimizer parameters are unchanged.",
+      "prior_specification_sha256": "a44ce62d843080d97503acbae679ad970bafa54c46ab38509ab961838009642e",
+      "performance_informed": false
+    },
+    {
+      "reason": "After widening the exit band, the constraint-only path reached 2011-11-30 and stopped because holdings were being removed by the raw risk-pool truncation before the residual-rank holding buffer was evaluated. That contradicted the frozen holding-buffer intent. No v4 forward return, IC, Sharpe, IR, or public result artifact had been computed or inspected.",
+      "change": "Carry actual current holdings into the following month’s point-in-time risk pool before computing the residual-score exit rank. The rank-200 entry rule, rank-500 exit rule, 0.75 turnover ceiling, signal weights, costs, exposures, and optimizer parameters are unchanged.",
+      "prior_specification_sha256": "853fa4c453b2d6d6e622b67f47158da3677cd70368ff30167186530bdb3716b7",
+      "performance_informed": false
+    }
+  ],
+  "claim_policy": "This is an explicitly post-result retrospective follow-up. Better metrics, if observed, are exploratory evidence only and must never be described as validated alpha."
+}

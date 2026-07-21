@@ -1,0 +1,11 @@
+{
+  "schema": "equity-factor-institutional-v4-private-data-manifest.v1",
+  "institutional_v4_sha256": "4ef019d8c6dc7bd02860e806c73a49b0b24b140638100b3184b282d83284f400",
+  "monthly_source": "ignored_private_cache",
+  "daily_source": "ignored_private_cache",
+  "daily_number_of_rows": 6463899,
+  "daily_number_of_permnos": 2371,
+  "snapshot_count": 179,
+  "licensed_rows_committed": false,
+  "security_level_weights_committed": false
+}

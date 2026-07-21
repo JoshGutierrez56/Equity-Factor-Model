@@ -1,0 +1,21 @@
+{
+  "schema": "equity-factor-institutional-v4-artifact-manifest.v1",
+  "institutional_v4_sha256": "4ef019d8c6dc7bd02860e806c73a49b0b24b140638100b3184b282d83284f400",
+  "artifacts": {
+    "comparison_receipt.json": "8ca87b8bb45b1ecbd8816c0fd1af61948370a1b58cbcf6354336ce3c2aca9a1b",
+    "data_manifest.json": "2a10ce5a0e933066cbeb983a7da2c2e78cd82d90d06e7409ce0c55bb6563dacd",
+    "development_ic.csv": "ec731f9d4e3fcd09c4263f424b97806591c7bffca562b6e20c41d55d19c2bcb4",
+    "ensemble_weights.csv": "32bc45e1cc9360777af9755d913d9efc1550c96f8a3e8ec458c1451a3821507f",
+    "feasibility_receipt.csv": "554a95d6ae37942998c62cbe549dc2f742159466aa3777fe17b1e8beca006d2f",
+    "ic_comparison.csv": "e52591701872fdf8abcb30713e5f07e1cb0aeafbe56534c42558ae19d6ff6a46",
+    "implementation_comparison.csv": "d1feb651d1b7e18bfa6fed615e81d25151bcb374430d5ddcb9b6e952d808eb2e",
+    "monthly_portfolio_returns.csv": "e67d65bc1e49addd28c81352d2abc6b342e6da740fd3ae253f88d2c974ec96f4",
+    "portfolio_summary.csv": "58ac54f3d91f12e7e80e35b66773ffb2fda4cbb639cc8eba8349b35a508fbc2f",
+    "protocol.json": "ed3ecbcd415da01b233429901e6c3ea3fe33833e75fc3687ac81d68ac92beb86",
+    "quality_receipt.json": "84759c19989fa0251bb2c046cedca19362f75bb2f9938d250ab99d15458a1865",
+    "README.md": "5c39d039c9cad89e6081b3ae4257efbd0513f2f8119144536b8272ab93a933c1",
+    "replay_receipt.json": "d6c3332898dc2f3c8e193b1f208781a66270b21d5fa578b3bcb384a88d1b673d",
+    "v4_cumulative_wealth.png": "2d0a0c2454004b431e38ef7510cd768b8ed6c17b7eb2c199a5f199990fe164f6",
+    "v4_metric_comparison.png": "7a98f58a580f0b966e054b4c55eaa06559f70f2f1725335f7b7b2da76f44a9d4"
+  }
+}

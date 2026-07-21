@@ -107,6 +107,54 @@ The complete protocol, purged-selection ledger, cost stress, constraints,
 diagnostics, and aggregate monthly evidence are in
 [`results/institutional_v3/`](results/institutional_v3/README.md).
 
+## Version-4 signal and holding-buffer follow-up
+
+After the v3 cost decomposition identified membership churn, a fourth,
+explicitly post-result protocol tested one fixed correction. A development-only
+ensemble uses 2010–2019 IC across 1/3/6/12-month horizons, clips negative
+development weights, and shrinks them 50% toward equal weights. `SIZE_SCORE` is
+excluded because the portfolio separately enforces size neutrality. No
+hyperparameter grid was searched.
+
+The implementation admits new positions at absolute residual-score rank 200
+or better, explicitly carries current holdings into the next risk pool, and
+allows them to remain through rank 500. It retains v3's covariance, exposure,
+spread, impact, borrow, and CVXPY architecture while imposing a 0.75 turnover
+ceiling and position-level ADV capacity limits.
+
+| Matched 2021–2024 result | Frozen baseline | Institutional v3 | Version 4 |
+|---|---:|---:|---:|
+| Net Sharpe / overlay IR | 0.573 | 0.372 | **0.694** |
+| CAGR | **5.74%** | 2.79% | 5.31% |
+| Maximum drawdown | -15.28% | **-11.38%** | -12.39% |
+| Average monthly turnover | 0.627 | 0.948 | **0.561** |
+| FF5+momentum residual IR | -0.288 | -0.199 | **-0.024** |
+
+| Matched score diagnostic | Equal composite | Version 4 |
+|---|---:|---:|
+| 12-month rank IC | 2.77% | **5.60%** |
+| 12-month ICIR | 0.401 | **1.087** |
+| 12-month HAC t-statistic | 0.97 | **3.50** |
+
+The overlay IR equals net Sharpe by construction: for a self-financing
+dollar-neutral sleeve, the sleeve return is the active return and its
+volatility is the tracking-error contribution. It is not presented as a second
+independent performance win. The stricter FF5+momentum residual IR improved but
+remained slightly negative, and the paired block-bootstrap interval for the
+0.121 Sharpe gain versus baseline was -1.396 to 0.735. The correct verdict is
+**multi-metric retrospective improvement, not statistically confirmed or
+validated alpha**.
+
+Two performance-uninformed feasibility amendments are recorded in
+[`institutional_v4_protocol.json`](institutional_v4_protocol.json). Both
+occurred before any v4 return, IC, Sharpe, or IR was calculated. Complete
+aggregate evidence is in
+[`results/institutional_v4/`](results/institutional_v4/README.md).
+
+![Version-4 matched cumulative wealth](results/institutional_v4/v4_cumulative_wealth.png)
+
+![Version-4 metric comparison](results/institutional_v4/v4_metric_comparison.png)
+
 The prospective ledger starts in 2025 and remains `NOT_STARTED`: WRDS supplied
 data only through December 2024. At least 36 genuinely new, never-inspected
 months are required before any prospective conclusion is allowed.
@@ -149,6 +197,8 @@ institutional-style research system that demonstrates:
 - a separately frozen daily-risk/CVXPY implementation with purged candidate
   selection, shrinkage covariance, capacity/borrow stress, and a documented
   negative result;
+- a separately frozen retrospective development-IC ensemble and rank-buffered
+  low-churn implementation with explicit overlay-IR and residual-IR definitions;
 - Fama–French five-factor plus momentum attribution; and
 - aggregate-only public evidence, with licensed security rows kept private.
 
@@ -205,6 +255,8 @@ command-line arguments:
 python -m pip install -r requirements-live.txt
 python run_wrds_model.py --scope retrospective --refresh
 python run_portfolio_engineering.py
+python run_institutional_v3.py
+python run_institutional_v4.py
 ```
 
 Security-level licensed rows are written only beneath ignored `data/private/`.
@@ -222,6 +274,10 @@ returns, coverage, quality receipts, and hashes of the private inputs.
   realized factor exposures are reported rather than hidden.
 - Portfolio engineering was designed after the baseline was inspected. It is
   labeled retrospective and cannot serve as an untouched confirmation.
+- Versions 3 and 4 were also designed after earlier results were inspected.
+  Version 4 improved several retrospective metrics, but its Sharpe-difference
+  interval includes zero and its FF5+momentum residual IR remains slightly
+  negative.
 - Retrospective support is not live performance. The prospective result remains
   unopened and unavailable.
 
@@ -230,11 +286,17 @@ returns, coverage, quality receipts, and hashes of the private inputs.
 ```text
 run_wrds_model.py            # frozen real-data study and evidence writer
 run_portfolio_engineering.py # separately frozen implementation experiment
+run_institutional_v3.py      # daily-risk/cost-aware institutional experiment
+run_institutional_v4.py      # development-IC ensemble and holding-buffer follow-up
 src/factors/wrds_data.py     # bounded CRSP/Compustat acquisition
 src/factors/real_model.py    # PIT signals, inference, portfolios, diagnostics
 src/factors/portfolio_engineering.py # risk, constraints, turnover, bootstrap
+src/factors/institutional_v3.py # shrinkage covariance, optimizer, costs
+src/factors/institutional_v4.py # ensemble, hysteresis, capacity, residual IR
 results/wrds_real_data/      # primary aggregate evidence and protocol
 results/portfolio_engineering/ # implementation evidence and integrity receipt
+results/institutional_v3/    # frozen v3 aggregate evidence
+results/institutional_v4/    # frozen v4 aggregate evidence
 run_model.py                 # deterministic credential-free CI demonstration
 tests/                       # data, inference, security, and artifact contracts
 ```
