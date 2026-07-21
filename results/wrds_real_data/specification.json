@@ -1,0 +1,95 @@
+{
+  "schema": "equity-factor-real-data-specification.v2",
+  "specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
+  "frozen_at_utc": "2026-07-20T23:07:55.054524+00:00",
+  "protocol_frozen_before_prospective_data": true,
+  "prospective_start": "2025-01-01",
+  "prospective_status": "NOT_STARTED",
+  "historical_disclosure": "All data through 2024 have been inspected and are retrospective. The former 2024 holdout is not presented as pristine. Only observations on or after 2025-01-01 that were unavailable when this protocol was frozen may enter the prospective ledger.",
+  "audit_history": "A 2010-2024 audit exposed share-class continuity and short-holdout problems. Version 2 extends the historical replication, uses Compustat preliminary/final dates when available, adds the investment signal, separates primary from exploratory tests, and locks a future-only validation policy. Version-2 results remain retrospective.",
+  "request": {
+    "start": "1990-01-01",
+    "end": "2025-12-31",
+    "holdout_start": "2025-01-01",
+    "max_universe": 1000,
+    "min_price": 5.0,
+    "min_market_cap_millions": 100.0,
+    "accounting_lag_months": 6
+  },
+  "model": {
+    "horizons_months": [
+      1,
+      3,
+      6,
+      12
+    ],
+    "transaction_cost_bps": [
+      0.0,
+      10.0,
+      25.0
+    ],
+    "quantile_fraction": 0.2,
+    "winsor_lower": 0.01,
+    "winsor_upper": 0.99,
+    "min_factor_coverage": 4,
+    "min_inference_months": 24,
+    "min_prospective_months": 36,
+    "sector_neutral": true,
+    "size_neutral": true,
+    "bootstrap_repetitions": 1000,
+    "bootstrap_block_months": 12,
+    "bootstrap_seed": 20260720,
+    "factor_columns": [
+      "MOM",
+      "LV",
+      "SIZE",
+      "VALUE",
+      "QUALITY",
+      "INVESTMENT"
+    ],
+    "composite_weights": "equal; fixed ex ante",
+    "hypothesis_registry": {
+      "MOM": {
+        "primary_horizon_months": 6,
+        "expected_sign": 1,
+        "rationale": "Intermediate-horizon return continuation."
+      },
+      "LV": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "The low-risk anomaly predicts higher risk-adjusted returns."
+      },
+      "SIZE": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "Smaller eligible companies may earn a size premium."
+      },
+      "VALUE": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "High book-to-market firms may earn a value premium."
+      },
+      "QUALITY": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "Gross profitability predicts persistent operating quality."
+      },
+      "INVESTMENT": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "Conservative asset growth may outperform aggressive investment."
+      },
+      "COMPOSITE": {
+        "primary_horizon_months": 12,
+        "expected_sign": 1,
+        "rationale": "A fixed diversified blend should improve signal breadth."
+      }
+    },
+    "research_entity": "CRSP PERMCO company",
+    "share_class_treatment": "aggregate market equity and market-equity-weight monthly returns; largest class carries identifiers",
+    "implementation_lag": "signal at month t; return begins in month t+1",
+    "risk_attribution": "Fama-French five factors plus momentum; HAC(3)",
+    "multiple_testing": "Holm family-wise correction, separated into predeclared primary and exploratory horizon families",
+    "validation_policy": "all data before holdout_start are retrospective; only later, never-inspected months may be called prospective"
+  }
+}

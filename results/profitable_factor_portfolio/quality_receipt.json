@@ -1,0 +1,14 @@
+{
+  "aligned_months": 179,
+  "assessment_months": 47,
+  "factor_weight_sum": 1.0,
+  "gpu_used": false,
+  "licensed_rows_committed": false,
+  "maximum_factor_weight": 0.21982583947529455,
+  "raw_factor_rows_committed": false,
+  "schema": "equity-factor-profitable-factor-quality.v1",
+  "security_identifier_columns_present": [],
+  "security_level_weights_committed": false,
+  "sleeve_weight_sum": 0.9999999999999999,
+  "status": "PASS"
+}

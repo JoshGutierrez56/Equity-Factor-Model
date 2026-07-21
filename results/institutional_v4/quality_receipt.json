@@ -1,0 +1,15 @@
+{
+  "schema": "equity-factor-institutional-v4-quality.v1",
+  "status": "PASS",
+  "checks": {
+    "gross_exposure_violations": 0,
+    "position_cap_violations": 0,
+    "turnover_cap_violations": 0,
+    "beta_tolerance_violations": 0,
+    "size_tolerance_violations": 0,
+    "sector_tolerance_violations": 0,
+    "solver_failures": 0
+  },
+  "licensed_rows_committed": false,
+  "security_level_weights_committed": false
+}

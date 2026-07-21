@@ -1,0 +1,46 @@
+{
+  "schema": "equity-factor-institutional-v3-comparison.v1",
+  "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
+  "selected_candidate": "assertive",
+  "selection_data_end": "2019-12-31",
+  "classification": "NO_ROBUST_RETROSPECTIVE_IMPROVEMENT",
+  "alpha_classification": "NO_VALIDATED_ALPHA",
+  "all_evidence_retrospective": true,
+  "matched_comparison": {
+    "baseline_10bps": {
+      "n_months": 47,
+      "cagr": 0.05740798018896309,
+      "annualized_volatility": 0.10736785132452603,
+      "sharpe": 0.5734333349299204,
+      "max_drawdown": -0.15284219902500873,
+      "hit_rate": 0.6382978723404256,
+      "average_monthly_turnover": 0.6268362483442278,
+      "benchmark_cagr": 0.13032718412221866,
+      "information_ratio_vs_benchmark": -0.32522396976677326,
+      "alpha_annualized": 0.09915609425930969,
+      "beta": -0.27619695772942937
+    },
+    "institutional_v3_primary": {
+      "n_months": 47,
+      "cagr": 0.027876090005178655,
+      "annualized_volatility": 0.08298138704391719,
+      "sharpe": 0.37239715032746995,
+      "max_drawdown": -0.11375025376697634,
+      "hit_rate": 0.5957446808510638,
+      "average_monthly_turnover": 0.948006520505533,
+      "benchmark_cagr": 0.12256513142191738,
+      "information_ratio_vs_benchmark": -0.4613802776409582,
+      "alpha_annualized": 0.03940652784939544,
+      "beta": -0.06271761565606235
+    },
+    "sharpe_difference": -0.20103618460245049,
+    "sharpe_difference_ci_lower": -1.6162581054719256,
+    "sharpe_difference_ci_upper": 0.6583862248510242
+  },
+  "gates": {
+    "matched_sharpe_improved": false,
+    "paired_bootstrap_ci_excludes_zero": false,
+    "turnover_not_above_baseline": false,
+    "maximum_drawdown_not_worse": true
+  }
+}

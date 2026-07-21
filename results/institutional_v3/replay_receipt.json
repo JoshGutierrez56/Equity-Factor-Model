@@ -1,0 +1,23 @@
+{
+  "schema": "equity-factor-institutional-v3-replay.v1",
+  "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
+  "cache_only_replays": 2,
+  "exact_public_artifact_replay": true,
+  "licensed_rows_committed": false,
+  "artifact_sha256": {
+    "capacity_borrow_stress.png": "6bf8364b66bb1318bf7cbaae16e02aa1c617f42b3c782a0f4d3f3c6ae3f8ca9a",
+    "comparison_receipt.json": "1378e152ea495792687a7660cea81dde4cad5c6083f8ae98b66d2d8b400609de",
+    "data_manifest.json": "07828ce8f6ba85110609fd9fc74914bfdd4397137d39e5fc10d8c786bc227214",
+    "ic_decay.csv": "578666afc95abf2936e0cc11722a1d9917d46980cb99ca36786f2474c8868dbd",
+    "institutional_cumulative_wealth.png": "375210c49b80439330efc3534237e4e35eac922d265f40924e4292871e1edb44",
+    "liquidity.csv": "84b518248825e4853436240a0a42bae74b8f7880410fbabcb46f8dee7e32d300",
+    "monthly_portfolio_returns.csv": "a8557355ffc628a1c296640018f8860d0b79fae5a90c424b9ece94075e8f81bc",
+    "portfolio_summary.csv": "e21f38fd39d6400d66de754724c5c0ad3c8f6c1a86678dddd2704cd944dc35ae",
+    "protocol.json": "68c37fe5e99a8af8ebe034b6b50c5c9dd1d6d0e3ea50d278c31ad5b5602ec519",
+    "purged_selection.csv": "0ab6bf8ae55dd8f1a0ce14a4c95049e660f732733018982e8d9a0ab5309f7905",
+    "quality_receipt.json": "0ef364f0ba7e36a720862fef4ffaf153e7d8a1f852d7002744312bab8834f321",
+    "README.md": "06e34af6f3e8b4f4fc4a986af0027d3b6bf827b1cddede6c8955ae6eff625821",
+    "sector_ic.csv": "5b332d9914280f31bcbaf15fa08911fa590c40b37a0f9952d4f78237dd8b3d1b",
+    "turnover_autocorrelation.csv": "05fe704823d36225186ea98fc7f7a4a8849f0f50453eb850b11423a4f856751e"
+  }
+}

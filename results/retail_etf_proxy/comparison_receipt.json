@@ -1,0 +1,15 @@
+{
+  "active_information_ratio_vs_equal_weight_etfs": 0.33266782676582146,
+  "active_information_ratio_vs_spy": -0.7749434714009414,
+  "assessment_months": 60,
+  "classification": "RETROSPECTIVE_EXECUTABLE_PROXY_TEST",
+  "fixed_development_spy_beta": 1.0052416507500352,
+  "gpu_used": false,
+  "paired_interval_excludes_zero": true,
+  "protocol_sha256": "3a2ad693382d0e72051465fbc0bffacfef39ec73140772cd7c2ec7c6801f3e9e",
+  "raw_public_price_rows_committed": false,
+  "schema": "equity-factor-retail-etf-proxy-receipt.v1",
+  "sharpe_difference_ci_lower": -0.3105901602059037,
+  "sharpe_difference_ci_upper": -0.04969635112766575,
+  "sharpe_difference_vs_spy": -0.15613040616293505
+}

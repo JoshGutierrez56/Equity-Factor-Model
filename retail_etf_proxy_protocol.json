@@ -1,0 +1,80 @@
+{
+  "schema": "equity-factor-retail-etf-proxy-protocol.v1",
+  "status": "FROZEN_BEFORE_ETF_OUTCOME_PULL",
+  "frozen_at_utc": "2026-07-21T04:31:00Z",
+  "experiment_classification": "RETROSPECTIVE_EXECUTABLE_PROXY_TEST",
+  "parent_protocol": "profitable_factor_portfolio_protocol.json",
+  "motivation": [
+    "Academic Fama-French factor returns are not directly investable.",
+    "This study translates the previously fixed factor weights into a simple long-only ETF basket that can be paper traded without leverage or shorting.",
+    "The mapping and evaluation rules were written before ETF return outcomes were downloaded for this extension."
+  ],
+  "locked_mapping": {
+    "SPY": {
+      "weight": 0.21982583947529455,
+      "source_factors": ["mktrf"],
+      "role": "US large-cap market proxy"
+    },
+    "IWM": {
+      "weight": 0.12006665204590708,
+      "source_factors": ["smb"],
+      "role": "US small-cap proxy"
+    },
+    "VLUE": {
+      "weight": 0.12912581605042373,
+      "source_factors": ["hml"],
+      "role": "US value-factor proxy"
+    },
+    "QUAL": {
+      "weight": 0.3590985669774964,
+      "source_factors": ["rmw", "cma"],
+      "role": "US quality/profitability proxy; imperfectly absorbs the conservative-investment weight"
+    },
+    "MTUM": {
+      "weight": 0.1718831254508782,
+      "source_factors": ["umd"],
+      "role": "US momentum-factor proxy"
+    }
+  },
+  "locked_data_and_execution": {
+    "source": "Yahoo Finance adjusted total-return history through yfinance",
+    "raw_cache_policy": "local ignored data/private only",
+    "price_field": "auto-adjusted close",
+    "rebalance_frequency": "monthly at the last available trading-day close",
+    "weights": "constant target weights from the already-frozen profitable-factor allocation",
+    "leverage": 1.0,
+    "shorting": false,
+    "fractional_shares_assumed": true,
+    "initial_funding_cost_in_primary_returns": false,
+    "one_way_turnover_cost_bps": [0, 5, 10, 25],
+    "primary_one_way_turnover_cost_bps": 10
+  },
+  "locked_windows": {
+    "data_start": "2013-07-18",
+    "development_beta_end": "2019-12-31",
+    "embargo": "2020-01-01 through 2020-12-31",
+    "primary_assessment": "2021-01-01 through 2025-12-31",
+    "post_freeze_extension": "2026-01-01 through latest complete month, reported separately if available"
+  },
+  "locked_benchmarks_and_metrics": {
+    "benchmarks": ["SPY", "equal-weight five-ETF basket"],
+    "metrics": [
+      "CAGR",
+      "annualized volatility",
+      "Sharpe ratio",
+      "maximum drawdown",
+      "monthly turnover",
+      "active information ratio",
+      "beta to SPY",
+      "rolling 12-month return",
+      "cost stress",
+      "paired 12-month moving-block Sharpe interval"
+    ]
+  },
+  "claim_policy": [
+    "This is a retrospective tradable-proxy study, not a live or prospective track record.",
+    "QUAL is not a literal CMA portfolio and ETF returns cannot replicate academic long-short factor portfolios exactly.",
+    "Report every locked cost case and benchmark, including underperformance.",
+    "Do not use the result as a recommendation to invest personal money."
+  ]
+}

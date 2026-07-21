@@ -1,0 +1,9 @@
+{
+  "fixed_development_spy_beta": 1.005241650750036,
+  "maximum_requests": 120,
+  "planned_maximum_requests": 118,
+  "planned_observations": 59,
+  "protocol_sha256": "9f13a7e4c012e5087327a56e641e2c80a291e75af8335a5ff7baa77b9a65b372",
+  "schema": "equity-factor-spy-options-preflight.v1",
+  "status": "PASS"
+}

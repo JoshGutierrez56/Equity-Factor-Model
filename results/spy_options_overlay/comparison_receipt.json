@@ -1,0 +1,7 @@
+{
+  "classification": "RETROSPECTIVE_DEFINED_RISK_OPTIONS_OVERLAY",
+  "collar_information_ratio_vs_underlying": -1.1565869352596625,
+  "primary_claim_allowed": true,
+  "put_spread_information_ratio_vs_underlying": -0.41998382633778725,
+  "schema": "equity-factor-spy-options-comparison.v1"
+}

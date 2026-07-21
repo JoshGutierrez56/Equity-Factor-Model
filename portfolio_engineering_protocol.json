@@ -1,0 +1,41 @@
+{
+  "schema": "equity-factor-portfolio-engineering-protocol.v1",
+  "status": "FROZEN_BEFORE_RETURN_EVALUATION",
+  "frozen_at_utc": "2026-07-20T23:56:17.1550347Z",
+  "baseline_specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
+  "portfolio_engineering_sha256": "4beb69c337216fd9cbfc20b4c70c4737ae41ef63e35d37853b1d71f0a778a00c",
+  "baseline_artifact_hashes_at_freeze": {
+    "portfolio_summary_sha256": "593ebf0e36ed706de5d4c48003f339fec6382d90d1dd2991ed050edb21086cb1",
+    "monthly_portfolio_returns_sha256": "8d82a04cd31509c885974b3e3998e3688f495ee69cc71a2cfcf33565ff5f37b1",
+    "research_protocol_sha256": "5aa5e9fc371dc2011f6f36ab24feca760d882a010836f3b5a15049454eb2cf41"
+  },
+  "experiment_classification": "RETROSPECTIVE_POST_HOC_PORTFOLIO_ENGINEERING",
+  "signal_policy": "The version-2 composite score, factor definitions, universe, and return labels are unchanged.",
+  "primary_candidate": {
+    "signal": "COMPOSITE",
+    "strategy": "risk_turnover_vol_scaled",
+    "cost_bps": 10.0
+  },
+  "comparators": [
+    "baseline_continuous_long_short",
+    "risk_neutral",
+    "risk_turnover_managed"
+  ],
+  "locked_construction": {
+    "risk_scaling": "inverse trailing 24-month volatility, requiring 18 months and clipping volatility at the monthly 10th/90th percentiles",
+    "constraints": "dollar, rolling-market-beta, SIC-sector, and log-market-cap neutral projection",
+    "gross_exposure": 2.0,
+    "maximum_absolute_weight": 0.015,
+    "turnover_control": "rebalance 35% of desired change; ignore absolute target changes below 0.0005",
+    "volatility_target": "10% annualized from the preceding 24 portfolio returns, requiring 12 months, with 0.5x to 1.5x multiplier",
+    "transaction_cost_bps": [0.0, 10.0, 25.0]
+  },
+  "acceptance_gates": [
+    "10-bps Sharpe exceeds the frozen 10-bps baseline",
+    "average monthly turnover is lower than the frozen baseline",
+    "maximum drawdown is no worse than the frozen baseline",
+    "paired 12-month moving-block 95% interval for the Sharpe improvement excludes zero",
+    "mean absolute rolling-beta exposure is below 0.05"
+  ],
+  "claim_policy": "Even if every retrospective gate passes, the result is an engineering improvement, not validated alpha. Prospective status remains NOT_STARTED and the future-only 36-month rule is unchanged."
+}

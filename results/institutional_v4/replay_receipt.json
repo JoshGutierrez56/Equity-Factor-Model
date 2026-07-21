@@ -1,0 +1,11 @@
+{
+  "schema": "equity-factor-institutional-v4-replay.v1",
+  "status": "PASS",
+  "mode": "ignored-private-cache-only",
+  "first_artifact_manifest_sha256": "de7561f3f18c1c736b49f2ef736778aa727238daaa1bd5ed2d66db8d43bb7635",
+  "second_artifact_manifest_sha256": "de7561f3f18c1c736b49f2ef736778aa727238daaa1bd5ed2d66db8d43bb7635",
+  "exact_match": true,
+  "licensed_rows_committed": false,
+  "security_level_weights_committed": false,
+  "note": "Two consecutive cache-only executions reproduced the pre-receipt public artifact manifest byte for byte."
+}

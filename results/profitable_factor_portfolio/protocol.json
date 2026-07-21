@@ -1,0 +1,59 @@
+{
+  "acceptance_and_claim_policy": [
+    "Report gross and all factor-cost stress scenarios, not only the best result.",
+    "Report CAGR, volatility, drawdown, Sharpe, factor-tilt IR, active IR versus v4, and the paired Sharpe interval.",
+    "Do not call the factor combination new alpha, factor-neutral alpha, prospective evidence, or investment advice.",
+    "Do not hide that the factor sleeve uses academic test-portfolio returns and lacks security-level transaction-cost reconstruction."
+  ],
+  "documented_at_utc": "2026-07-21T02:43:00Z",
+  "experiment_classification": "RETROSPECTIVE_PERFORMANCE_INFORMED_FACTOR_COMBINATION",
+  "institutional_v4_sha256": "4ef019d8c6dc7bd02860e806c73a49b0b24b140638100b3184b282d83284f400",
+  "locked_combination_design": {
+    "embargo": "2020 is reported separately and does not fit weights",
+    "mix_rule": "inverse development volatility across v4 net and the fixed factor sleeve",
+    "primary_portfolio": "unlevered combination",
+    "secondary_risk_scaled_portfolio": "development-only 8% annual volatility target capped at 2.0x leverage",
+    "sleeve_training_dates": "2010-01-01 through 2019-12-31",
+    "v4_input": "$100 million AUM / 150-bp annual borrow net return series"
+  },
+  "locked_cost_reporting": {
+    "factor_cost_haircuts_bps_annual": [
+      0,
+      50,
+      100,
+      150
+    ],
+    "limitation": "flat factor haircuts are stress scenarios, not security-level implementation estimates; academic Fama-French returns are not directly investable",
+    "primary_factor_cost_haircut_bps_annual": 100,
+    "v4_costs": "already include lagged spread, nonlinear impact, and 150-bp annual borrow assumptions"
+  },
+  "locked_factor_design": {
+    "assessment_dates": "v4 formation months 2021-01-01 through 2024-11-30 aligned to factor-return months 2021-02 through 2024-12",
+    "development_dates": "1990-01-01 through 2019-12-31",
+    "factors": [
+      "mktrf",
+      "smb",
+      "hml",
+      "rmw",
+      "cma",
+      "umd"
+    ],
+    "selection_rule": "all six factors remain eligible; weak development factors receive smaller rather than outcome-selected zero weights",
+    "weight_rule": "50% equal weight plus 50% normalized positive development Sharpe; cap each factor at 30% and redistribute any excess pro rata"
+  },
+  "locked_metrics": {
+    "active_information_ratio_vs_v4": "combined unlevered return minus v4 net return, reported even if negative",
+    "factor_tilt_information_ratio": "tilted combination minus otherwise identical equal-factor combination, annualized mean divided by annualized tracking error",
+    "ic_policy": "the combined portfolio has no cross-sectional IC; version-4 score IC remains the applicable stock-selection diagnostic",
+    "paired_interval": "5000-repetition circular 12-month moving-block interval for combined-minus-v4 Sharpe",
+    "sharpe": "annualized mean monthly return divided by annualized monthly volatility"
+  },
+  "motivation": [
+    "Version 4 produced positive net returns and strong rank IC but essentially zero FF5-plus-momentum residual alpha.",
+    "The allocation layer therefore leans into established premiums deliberately instead of presenting explained returns as novel alpha.",
+    "All factor and v4 assessment returns through 2024 had already been inspected; no pristine validation claim is possible."
+  ],
+  "profitable_factor_portfolio_sha256": "e403b19d89d027310ea578aa34c71f1d83f97d84d2f7001af96fcd57d76f1dda",
+  "schema": "equity-factor-profitable-factor-portfolio-protocol.v1",
+  "status": "DOCUMENTED_AFTER_EXPLORATORY_ITERATION"
+}

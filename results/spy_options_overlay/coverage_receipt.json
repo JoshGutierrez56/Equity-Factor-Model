@@ -1,0 +1,13 @@
+{
+  "coverage_rate": 1.0,
+  "coverage_status": "PASS",
+  "coverage_threshold": 0.8,
+  "exact_contract_identities_committed": false,
+  "executable_observations": 59,
+  "gpu_used": false,
+  "planned_observations": 59,
+  "provider_response_sets_used": 118,
+  "raw_orats_rows_committed": false,
+  "schema": "equity-factor-spy-options-coverage.v1",
+  "token_logged_or_committed": false
+}

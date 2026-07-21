@@ -1,0 +1,24 @@
+{
+  "schema": "equity-factor-institutional-v4-comparison.v1",
+  "institutional_v4_sha256": "4ef019d8c6dc7bd02860e806c73a49b0b24b140638100b3184b282d83284f400",
+  "classification": "RETROSPECTIVE_MULTI_METRIC_IMPROVEMENT",
+  "alpha_classification": "NO_VALIDATED_ALPHA",
+  "all_evidence_retrospective": true,
+  "reporting_clarification": {
+    "overlay_information_ratio": "For a self-financing dollar-neutral overlay, active return is the sleeve net return and overlay IR therefore equals net Sharpe.",
+    "factor_residual_information_ratio": "Annualized FF5+momentum intercept divided by annualized residual volatility; retained as the stricter distinctiveness diagnostic.",
+    "clarification_added_after_evaluation": true,
+    "strategy_or_return_series_changed": false
+  },
+  "matched_sharpe_difference_vs_baseline": 0.12065817284716251,
+  "matched_sharpe_difference_ci_lower": -1.3959950453748524,
+  "matched_sharpe_difference_ci_upper": 0.7345285472412734,
+  "gates": {
+    "sharpe_exceeds_baseline": true,
+    "sharpe_exceeds_v3": true,
+    "turnover_not_above_baseline": true,
+    "twelve_month_ic_exceeds_composite": true,
+    "factor_residual_ir_exceeds_baseline": true,
+    "paired_bootstrap_ci_excludes_zero": false
+  }
+}

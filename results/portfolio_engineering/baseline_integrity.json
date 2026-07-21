@@ -1,0 +1,18 @@
+{
+  "schema": "equity-factor-baseline-integrity.v1",
+  "baseline_specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
+  "baseline_artifact_hashes": {
+    "specification.json": "b6725586f8976309b03f16b983f294b44c07eeb557361e4724127ebefb9808be",
+    "research_protocol.json": "5aa5e9fc371dc2011f6f36ab24feca760d882a010836f3b5a15049454eb2cf41",
+    "portfolio_summary.csv": "593ebf0e36ed706de5d4c48003f339fec6382d90d1dd2991ed050edb21086cb1",
+    "monthly_portfolio_returns.csv": "8d82a04cd31509c885974b3e3998e3688f495ee69cc71a2cfcf33565ff5f37b1"
+  },
+  "maximum_absolute_metric_differences": {
+    "cagr": 5.551115123125783e-17,
+    "annualized_volatility": 8.326672684688674e-17,
+    "sharpe": 5.551115123125783e-17,
+    "max_drawdown": 5.551115123125783e-17,
+    "average_monthly_turnover": 0.0
+  },
+  "exact_replay": true
+}

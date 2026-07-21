@@ -1,0 +1,13 @@
+{
+  "artifacts": {
+    "README.md": "dbd44ea54b0d566b3272cd4d10f1b8b6e484e4fbfe29eb57d599044322a7552a",
+    "comparison_receipt.json": "056bcea245dc9f8fb927ad16225da47f1cfa85cc871627f3e53c0cd5a5d2d2b0",
+    "cost_stress.png": "52492365af430ad28a721be85e6de5593f2acdb2cfc0dbeae45ee3f8c4563e05",
+    "cumulative_wealth.png": "d7cca9583f942756d02e09d4efefef47eb43de833e3efa52237cab00ae7d707d",
+    "monthly_returns.csv": "1747512eea32457dcec863dd0270ec2dbe7e8fc0287c81902076d3e0c86434d0",
+    "portfolio_summary.csv": "e90b4bad465ad570e40bfe8c14fd9fdf2c4712e066a307760094b247473f137f",
+    "protocol.json": "bde78127c3095087cd973100db579eda42ed03acaaebd5735fdf05a74a35e1b9",
+    "target_weights.csv": "2ad2150c08231d5b2f7e2c791c0c3a92671ab5ffa3207e5ecbec2a6a8a61239e"
+  },
+  "schema": "equity-factor-retail-etf-proxy-artifacts.v1"
+}
