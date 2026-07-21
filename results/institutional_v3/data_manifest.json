@@ -1,0 +1,17 @@
+{
+  "schema": "equity-factor-institutional-v3-private-data-manifest.v1",
+  "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
+  "monthly_source": "ignored_private_cache",
+  "daily_source": "ignored_private_cache",
+  "daily_request": {
+    "start": "2009-01-01",
+    "end": "2024-12-31",
+    "maximum_permnos": 6000
+  },
+  "daily_universe_sha256": "fd1d22047f50e1cfd26d67452f631ae90b3081bcfeb0615324bd54231945d039",
+  "daily_number_of_permnos": 2371,
+  "daily_number_of_rows": 6463899,
+  "daily_partition_count": 16,
+  "daily_snapshot_count": 179,
+  "licensed_rows_committed": false
+}

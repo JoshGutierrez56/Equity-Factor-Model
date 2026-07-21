@@ -68,6 +68,45 @@ no validated alpha.
 The complete protocol and audit trail are in
 [`results/portfolio_engineering/`](results/portfolio_engineering/README.md).
 
+## Institutional version-3 implementation
+
+A third, separately frozen experiment tested whether daily risk estimates and a
+convex institutional implementation could improve the same unchanged composite.
+The architecture uses a 252-day Ledoit-Wolf shrinkage covariance matrix, CVXPY
+optimization, residualized alpha forecasts, beta/sector/size/position controls,
+lagged CRSP closing-spread estimates, ADV-based nonlinear impact, explicit
+borrow costs, and pre-2020 purged candidate selection.
+
+The constraint-only feasibility audit and every pre-result protocol amendment
+are preserved in [`institutional_v3_protocol.json`](institutional_v3_protocol.json).
+No amendment used a forward return or performance metric.
+
+| 2021-2024 matched result | Frozen 10-bps baseline | Institutional v3 primary |
+|---|---:|---:|
+| Sharpe | 0.573 | 0.372 |
+| CAGR | 5.74% | 2.79% |
+| Maximum drawdown | -15.28% | -11.38% |
+| Average monthly turnover | 0.627 | 0.948 |
+
+The primary scenario assumes $100 million AUM and 150 bps of annual short-borrow
+cost. Its Sharpe difference versus the baseline was -0.201, with a paired
+12-month moving-block 95% interval of -1.616 to 0.658. It improved drawdown and
+reduced beta exposure, but higher name churn and explicit capacity/borrow costs
+overwhelmed those benefits. The formal conclusion is **no robust retrospective
+improvement and no validated alpha**.
+
+This negative result is intentionally retained. It demonstrates that a more
+sophisticated optimizer does not rescue a modest signal automatically and that
+portfolio complexity must earn its implementation costs.
+
+![Institutional v3 cumulative wealth](results/institutional_v3/institutional_cumulative_wealth.png)
+
+![Institutional v3 capacity and borrow stress](results/institutional_v3/capacity_borrow_stress.png)
+
+The complete protocol, purged-selection ledger, cost stress, constraints,
+diagnostics, and aggregate monthly evidence are in
+[`results/institutional_v3/`](results/institutional_v3/README.md).
+
 The prospective ledger starts in 2025 and remains `NOT_STARTED`: WRDS supplied
 data only through December 2024. At least 36 genuinely new, never-inspected
 months are required before any prospective conclusion is allowed.
@@ -107,6 +146,9 @@ institutional-style research system that demonstrates:
 - continuous-score and quintile portfolios with turnover and 0/10/25-bps costs;
 - a separately frozen beta/sector/size-neutral, turnover-aware portfolio
   engineering experiment with paired block-bootstrap comparison;
+- a separately frozen daily-risk/CVXPY implementation with purged candidate
+  selection, shrinkage covariance, capacity/borrow stress, and a documented
+  negative result;
 - Fama–French five-factor plus momentum attribution; and
 - aggregate-only public evidence, with licensed security rows kept private.
 

@@ -1,0 +1,124 @@
+{
+  "schema": "equity-factor-institutional-v3-protocol.v1",
+  "status": "FROZEN_BEFORE_REAL_RETURN_EVALUATION",
+  "frozen_at_utc": "2026-07-21T00:35:46.4274135Z",
+  "amended_at_utc": "2026-07-21T00:47:00Z",
+  "baseline_specification_sha256": "0f193737dd782ea6c31fe09693910789edb99f76efc93d86ec35cae5cdbe1a5a",
+  "portfolio_engineering_sha256": "4beb69c337216fd9cbfc20b4c70c4737ae41ef63e35d37853b1d71f0a778a00c",
+  "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
+  "amendment_history": [
+    {
+      "reason": "The first solver attempt stopped as infeasible under a 0.75 hard monthly-turnover ceiling. No candidate return series, performance metric, or result artifact was produced or inspected.",
+      "change": "Raised only the hard feasibility ceiling from 0.75 to 1.50; the frozen turnover penalty and stricter acceptance gate requiring turnover no higher than the baseline are unchanged.",
+      "prior_specification_sha256": "10dc99a0a3f2d665cc5c433879d154d3b25a6c0b593613de9d06b9b2b3b1cde7",
+      "performance_informed": false
+    },
+    {
+      "reason": "A constraint-only audit of the first formation month showed that raw composite-score signs conflicted with the 0.05 size-exposure bound because SIZE is itself a component of the frozen composite. No portfolio return series or performance metric had been produced.",
+      "change": "Residualize the unchanged composite forecast against lagged beta, log-size, and sector controls before assigning optimizer long/short signs. The original 0.05 size/beta and 0.04 sector bounds remain unchanged. A constraint-only scan found all 179 formation months feasible.",
+      "prior_specification_sha256": "d1df652b4a9421d06fa410937e2a85c626ad4b43dd5fcc8e894eaad0fc030634",
+      "performance_informed": false
+    },
+    {
+      "reason": "After neutralizing the alpha forecast, a constraint-only sequential scan found that the top-200 membership rule requires up to 1.7012 turnover after inception (95th percentile 1.5787). The 1.50 ceiling was therefore still infeasible. No forward return or performance metric was used.",
+      "change": "Set the hard monthly-turnover feasibility ceiling to 1.75, just above the measured constraint-only maximum. The optimizer turnover penalty and acceptance gate requiring average turnover no higher than the frozen baseline remain unchanged.",
+      "prior_specification_sha256": "4e36f4719275c0cabe2fceca3266541bd7aa7f6daed0350767928fe52a43a39a",
+      "performance_informed": false
+    }
+  ],
+  "frozen_artifact_hashes": {
+    "baseline_portfolio_summary_sha256": "593ebf0e36ed706de5d4c48003f339fec6382d90d1dd2991ed050edb21086cb1",
+    "engineering_portfolio_summary_sha256": "ff24b22475bc0fe9367fa5b7f432428ed34602d9cfab03e8ebcf2da02280b100",
+    "engineering_comparison_receipt_sha256": "df16fb9b7e3f8610895a9c01092e785938cdbec25c021c5b37bdb3c2cdd2ae3a"
+  },
+  "experiment_classification": "RETROSPECTIVE_POST_HOC_INSTITUTIONAL_IMPLEMENTATION",
+  "inspiration_sources": {
+    "cvxportfolio": "https://github.com/cvxgrp/cvxportfolio",
+    "skfolio": "https://github.com/skfolio/skfolio",
+    "alphalens_reloaded": "https://github.com/stefan-jansen/alphalens-reloaded",
+    "pyportfolioopt": "https://github.com/PyPortfolio/PyPortfolioOpt"
+  },
+  "locked_primary_scenario": {
+    "aum_usd": 100000000.0,
+    "borrow_bps_annual": 150.0,
+    "signal": "COMPOSITE",
+    "reporting_period": "2021-01-01 through 2024-12-31",
+    "reporting_classification": "retrospective temporal assessment; not a pristine holdout"
+  },
+  "locked_selection": {
+    "candidate_count": 200,
+    "daily_risk_lookback": 252,
+    "minimum_daily_observations": 126,
+    "risk_model": "Ledoit-Wolf shrinkage covariance estimated from lagged CRSP daily returns",
+    "alpha_forecast": "unchanged composite score residualized against lagged beta, log-size, and sector exposures before sign assignment",
+    "candidate_grid": [
+      {
+        "name": "conservative",
+        "expected_return_scale": 0.004,
+        "risk_aversion": 8.0,
+        "turnover_penalty": 0.0025
+      },
+      {
+        "name": "balanced",
+        "expected_return_scale": 0.005,
+        "risk_aversion": 5.0,
+        "turnover_penalty": 0.0015
+      },
+      {
+        "name": "assertive",
+        "expected_return_scale": 0.006,
+        "risk_aversion": 3.0,
+        "turnover_penalty": 0.001
+      }
+    ],
+    "development_folds": [
+      [
+        "2010-01-01",
+        "2012-12-31"
+      ],
+      [
+        "2014-01-01",
+        "2016-12-31"
+      ],
+      [
+        "2018-01-01",
+        "2019-12-31"
+      ]
+    ],
+    "purge_months_between_folds": 12,
+    "selection_score": "median fold Sharpe at primary costs minus 0.25 times monthly turnover minus 0.25 times absolute maximum drawdown",
+    "tie_break": "more conservative candidate order"
+  },
+  "locked_constraints": {
+    "gross_exposure": 2.0,
+    "maximum_absolute_weight": 0.02,
+    "maximum_monthly_turnover": 1.75,
+    "absolute_beta_tolerance": 0.05,
+    "absolute_size_tolerance": 0.05,
+    "absolute_sector_tolerance": 0.04
+  },
+  "locked_cost_model": {
+    "spread": "lagged CRSP closing bid/ask; 10% of daily high-low range when missing; two-basis-point floor",
+    "market_impact": "0.10 times daily volatility times square root of trade dollars over median ADV",
+    "aum_stress_usd": [
+      10000000.0,
+      100000000.0,
+      500000000.0
+    ],
+    "borrow_stress_bps_annual": [
+      50.0,
+      150.0,
+      300.0
+    ],
+    "adv_participation_cap": 0.1
+  },
+  "acceptance_gates": [
+    "primary 2021-2024 Sharpe exceeds the frozen baseline over matched dates",
+    "paired 12-month moving-block interval for the Sharpe difference excludes zero",
+    "average monthly turnover does not exceed the frozen baseline",
+    "maximum drawdown is no worse than the frozen baseline",
+    "all beta, size, sector, gross, position, and turnover constraints pass",
+    "private WRDS security rows remain ignored and absent from committed artifacts"
+  ],
+  "claim_policy": "No retrospective outcome, including a high Sharpe, may be called validated alpha. The original future-only 36-month prospective rule is unchanged."
+}
