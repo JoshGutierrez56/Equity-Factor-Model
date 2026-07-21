@@ -27,9 +27,9 @@
     }
   ],
   "frozen_artifact_hashes": {
-    "baseline_portfolio_summary_sha256": "593ebf0e36ed706de5d4c48003f339fec6382d90d1dd2991ed050edb21086cb1",
-    "engineering_portfolio_summary_sha256": "ff24b22475bc0fe9367fa5b7f432428ed34602d9cfab03e8ebcf2da02280b100",
-    "engineering_comparison_receipt_sha256": "df16fb9b7e3f8610895a9c01092e785938cdbec25c021c5b37bdb3c2cdd2ae3a"
+    "baseline_portfolio_summary_sha256": "4f69509a856aa122f9158d24c6df0d5c932bacfd8474d1d34c2337448e32fb38",
+    "engineering_portfolio_summary_sha256": "a3f76780f2240c8afede710dc8df38bab3160082098c2f9c32acd9ad6c1f75c9",
+    "engineering_comparison_receipt_sha256": "214b62b28e3177581e5fbc031bf9af15788dc2aab0f8ce2d8363a45fa8c28c69"
   },
   "experiment_classification": "RETROSPECTIVE_POST_HOC_INSTITUTIONAL_IMPLEMENTATION",
   "inspiration_sources": {

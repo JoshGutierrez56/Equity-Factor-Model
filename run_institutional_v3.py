@@ -17,7 +17,10 @@ import pandas as pd
 
 
 def _hash(path: Path) -> str:
-    return sha256(path.read_bytes()).hexdigest()
+    data = path.read_bytes()
+    if path.suffix.lower() in {".csv", ".json", ".md", ".txt"}:
+        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return sha256(data).hexdigest()
 
 
 def _row(frame: pd.DataFrame, **filters) -> pd.Series:

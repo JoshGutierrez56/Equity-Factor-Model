@@ -14,6 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results" / "institutional_v3"
 
 
+def _portable_hash(path: Path) -> str:
+    data = path.read_bytes()
+    if path.suffix.lower() in {".csv", ".json", ".md", ".txt"}:
+        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def test_protocol_hash_and_prior_artifacts_remain_frozen():
     protocol = json.loads((ROOT / "institutional_v3_protocol.json").read_text())
     baseline = json.loads((ROOT / "results/wrds_real_data/specification.json").read_text())
@@ -30,7 +37,7 @@ def test_protocol_hash_and_prior_artifacts_remain_frozen():
         "engineering_comparison_receipt_sha256": ROOT / "results/portfolio_engineering/comparison_receipt.json",
     }
     for name, path in paths.items():
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == protocol["frozen_artifact_hashes"][name]
+        assert _portable_hash(path) == protocol["frozen_artifact_hashes"][name]
 
 
 def test_result_bundle_passes_constraints_and_preserves_negative_verdict():
@@ -56,7 +63,7 @@ def test_public_artifacts_are_aggregate_only_and_complete():
     for name, expected_hash in manifest["artifacts"].items():
         path = RESULTS / name
         assert path.exists()
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected_hash
+        assert _portable_hash(path) == expected_hash
 
 
 def test_readme_links_to_the_frozen_evidence():

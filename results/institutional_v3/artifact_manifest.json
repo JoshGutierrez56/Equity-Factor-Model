@@ -3,19 +3,19 @@
   "institutional_v3_sha256": "71bb16ae5752bbd4daa101bbb00e14668dd5379a6d3ede72fa6dfcd1085e5c6e",
   "artifacts": {
     "capacity_borrow_stress.png": "6bf8364b66bb1318bf7cbaae16e02aa1c617f42b3c782a0f4d3f3c6ae3f8ca9a",
-    "comparison_receipt.json": "9af2d660c4468f674ce68c8127b2417f3e8c301db928734c918f73e0a701f06e",
-    "data_manifest.json": "ac28c8c24d80846ca18efb6a0c3e48d5ddc217f31ebc899ba4054e68c4c5f360",
-    "ic_decay.csv": "52dc6827e24af7fb9094cb749a4d523969a2b5aa5ff4bf45a89ff6915be4dad2",
+    "comparison_receipt.json": "1378e152ea495792687a7660cea81dde4cad5c6083f8ae98b66d2d8b400609de",
+    "data_manifest.json": "07828ce8f6ba85110609fd9fc74914bfdd4397137d39e5fc10d8c786bc227214",
+    "ic_decay.csv": "578666afc95abf2936e0cc11722a1d9917d46980cb99ca36786f2474c8868dbd",
     "institutional_cumulative_wealth.png": "375210c49b80439330efc3534237e4e35eac922d265f40924e4292871e1edb44",
-    "liquidity.csv": "eefea639ed2924ec1d850ee4e50cc33bcf7631b6b949e9d257501d84f290519d",
-    "monthly_portfolio_returns.csv": "017c6e0473909e0ca8004fbbb18de516a51a1a7085e17457b0683450b6ad8979",
-    "portfolio_summary.csv": "b129a78a279ea0e5e9ddc0ca42951d91e399804168fde42686def992a0ce88ce",
-    "protocol.json": "524da3ec0db7e58f2fe9050154c4c4fcec78b8ab5208ff53fee1642f877b1622",
-    "purged_selection.csv": "2e5c41f53980a4c2fc06a9d7ccd20b969650b533b071d11513caa010f46be37e",
-    "quality_receipt.json": "9b3c93586dfe4e119d4db58dad7d4e2d3558ca1a98b55beae164bb86cf9f6d99",
-    "README.md": "d6ca40490426ec1db4a1eff0314b1d3dd68eef8c181d272961adf31101e248bf",
-    "replay_receipt.json": "d5db6733261dc0c842b25e0a08c329d40ce908af5ba8afd936c5f3ccf1f55c01",
-    "sector_ic.csv": "be54f77d86234eb1af2d981b42986e2df7a441864d2186265a0d9dff6a7d14cf",
-    "turnover_autocorrelation.csv": "795537ca60a07c05d92416f7500fd08e9d0c517213ca2270f2071f75791d11ea"
+    "liquidity.csv": "84b518248825e4853436240a0a42bae74b8f7880410fbabcb46f8dee7e32d300",
+    "monthly_portfolio_returns.csv": "a8557355ffc628a1c296640018f8860d0b79fae5a90c424b9ece94075e8f81bc",
+    "portfolio_summary.csv": "e21f38fd39d6400d66de754724c5c0ad3c8f6c1a86678dddd2704cd944dc35ae",
+    "protocol.json": "68c37fe5e99a8af8ebe034b6b50c5c9dd1d6d0e3ea50d278c31ad5b5602ec519",
+    "purged_selection.csv": "0ab6bf8ae55dd8f1a0ce14a4c95049e660f732733018982e8d9a0ab5309f7905",
+    "quality_receipt.json": "0ef364f0ba7e36a720862fef4ffaf153e7d8a1f852d7002744312bab8834f321",
+    "README.md": "06e34af6f3e8b4f4fc4a986af0027d3b6bf827b1cddede6c8955ae6eff625821",
+    "replay_receipt.json": "f0afdbcbc364f2a6af08acb35d8e28526b0782050195e67634a0383504ef7abd",
+    "sector_ic.csv": "5b332d9914280f31bcbaf15fa08911fa590c40b37a0f9952d4f78237dd8b3d1b",
+    "turnover_autocorrelation.csv": "05fe704823d36225186ea98fc7f7a4a8849f0f50453eb850b11423a4f856751e"
   }
 }
