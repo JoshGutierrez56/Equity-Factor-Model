@@ -32,6 +32,42 @@ validated prospective alpha**.
 
 ![Composite cost sensitivity](results/wrds_real_data/composite_cost_sensitivity.png)
 
+## Locked portfolio-engineering follow-up
+
+After freezing the baseline above, a separate protocol tested whether explicit
+risk and implementation controls could convert the same composite score more
+efficiently. The primary candidate was fixed before its returns were calculated:
+inverse-volatility score scaling; dollar, beta, SIC-sector, and log-size
+neutrality; a 1.5% position cap; partial rebalancing with a no-trade band; and
+trailing volatility targeting.
+
+| 10-bps result | Frozen baseline | Primary engineered |
+|---|---:|---:|
+| Sharpe | 0.466 | 0.472 |
+| CAGR | 4.11% | 3.28% |
+| Annualized volatility | 9.62% | 7.42% |
+| Maximum drawdown | -26.62% | -23.21% |
+| Average monthly turnover | 0.657 | 0.405 |
+
+The engineered portfolio reduced turnover by 38% and improved drawdown, but its
+Sharpe gain was only 0.006. A paired 12-month moving-block bootstrap interval
+for that gain was -0.163 to 0.212, so the improvement is not statistically
+reliable. Its retrospective FF5-plus-momentum alpha was 2.26% annually
+(HAC t=2.54, p=0.011), but this follow-up was motivated after inspecting the
+baseline and is not prospective evidence.
+
+The locked risk-plus-turnover comparator reached a descriptive 0.531 Sharpe at
+10 bps, but it was not the predeclared primary candidate and is not substituted
+after the fact. The honest conclusion remains: better implementation quality,
+no validated alpha.
+
+![Engineered cumulative wealth](results/portfolio_engineering/engineered_cumulative_wealth.png)
+
+![Engineered Sharpe and costs](results/portfolio_engineering/engineered_sharpe_costs.png)
+
+The complete protocol and audit trail are in
+[`results/portfolio_engineering/`](results/portfolio_engineering/README.md).
+
 The prospective ledger starts in 2025 and remains `NOT_STARTED`: WRDS supplied
 data only through December 2024. At least 36 genuinely new, never-inspected
 months are required before any prospective conclusion is allowed.
@@ -69,6 +105,8 @@ institutional-style research system that demonstrates:
   moving-block bootstrap intervals;
 - calendar-decade stability and quintile-monotonicity diagnostics;
 - continuous-score and quintile portfolios with turnover and 0/10/25-bps costs;
+- a separately frozen beta/sector/size-neutral, turnover-aware portfolio
+  engineering experiment with paired block-bootstrap comparison;
 - Fama–French five-factor plus momentum attribution; and
 - aggregate-only public evidence, with licensed security rows kept private.
 
@@ -124,6 +162,7 @@ command-line arguments:
 ```bash
 python -m pip install -r requirements-live.txt
 python run_wrds_model.py --scope retrospective --refresh
+python run_portfolio_engineering.py
 ```
 
 Security-level licensed rows are written only beneath ignored `data/private/`.
@@ -139,6 +178,8 @@ returns, coverage, quality receipts, and hashes of the private inputs.
 - Linear costs exclude borrow fees, nonlinear impact, and capacity constraints.
 - The continuous portfolio is dollar neutral but not explicitly beta neutral;
   realized factor exposures are reported rather than hidden.
+- Portfolio engineering was designed after the baseline was inspected. It is
+  labeled retrospective and cannot serve as an untouched confirmation.
 - Retrospective support is not live performance. The prospective result remains
   unopened and unavailable.
 
@@ -146,9 +187,12 @@ returns, coverage, quality receipts, and hashes of the private inputs.
 
 ```text
 run_wrds_model.py            # frozen real-data study and evidence writer
+run_portfolio_engineering.py # separately frozen implementation experiment
 src/factors/wrds_data.py     # bounded CRSP/Compustat acquisition
 src/factors/real_model.py    # PIT signals, inference, portfolios, diagnostics
+src/factors/portfolio_engineering.py # risk, constraints, turnover, bootstrap
 results/wrds_real_data/      # primary aggregate evidence and protocol
+results/portfolio_engineering/ # implementation evidence and integrity receipt
 run_model.py                 # deterministic credential-free CI demonstration
 tests/                       # data, inference, security, and artifact contracts
 ```

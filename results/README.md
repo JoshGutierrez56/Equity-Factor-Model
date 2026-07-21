@@ -7,6 +7,15 @@ evidence from CRSP/Compustat. It includes the frozen specification, private-inpu
 hash manifest, coverage, IC inference, cost-aware portfolio summaries, and
 portfolio-level monthly returns. It contains no licensed security-level rows.
 
+## Follow-up: locked portfolio engineering
+
+[`portfolio_engineering/`](portfolio_engineering/README.md) preserves the
+version-2 baseline and evaluates a separately frozen risk-, constraint-,
+turnover-, and volatility-managed implementation. The primary 10-bps Sharpe
+moved from 0.466 to 0.472, while turnover and drawdown improved. The paired
+block-bootstrap interval includes zero, so the bundle reports an implementation
+improvement that is not statistically confirmed rather than an alpha success.
+
 ## Legacy: deterministic synthetic validation
 
 The `synthetic_*` files were generated with:

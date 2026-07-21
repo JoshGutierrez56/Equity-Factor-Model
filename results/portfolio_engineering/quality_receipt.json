@@ -1,0 +1,13 @@
+{
+  "schema": "equity-factor-portfolio-engineering-quality.v1",
+  "status": "PASS",
+  "checks": {
+    "baseline_exact_replay_failures": 0,
+    "protocol_hash_mismatch": 0,
+    "prospective_rows_published": 0,
+    "mean_absolute_beta_above_0_05": 0,
+    "mean_absolute_net_above_0_001": 0,
+    "max_position_above_declared_cap": 0
+  },
+  "licensed_rows_committed": false
+}

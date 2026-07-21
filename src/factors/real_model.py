@@ -572,6 +572,11 @@ def compute_factor_attribution(
     monthly: pd.DataFrame,
     fama_french: pd.DataFrame,
     spec: RealModelSpec,
+    primary_key: tuple[str, str, float] = (
+        "COMPOSITE",
+        "continuous_long_short",
+        10.0,
+    ),
 ) -> pd.DataFrame:
     """Regress portfolio returns on FF5 plus momentum with HAC inference."""
     factors = fama_french.copy()
@@ -621,7 +626,7 @@ def compute_factor_attribution(
                 ),
                 "test_family": (
                     "primary"
-                    if keys == ("COMPOSITE", "continuous_long_short", 10.0)
+                    if keys == primary_key
                     else "exploratory"
                 ),
             }
