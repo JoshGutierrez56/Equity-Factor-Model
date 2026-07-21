@@ -1,0 +1,17 @@
+{
+  "artifacts": {
+    "README.md": "e776d1a4ef3b2b905de4b83d6f3ff5aa1fbc61eeac33ad7929eac10c846c3c17",
+    "comparison_receipt.json": "8da6a7370551f83cf0b49ab5bc550428b5261b6ae573ba9d9ee6b396f0a45056",
+    "data_manifest.json": "6174cebc7b49025e9e4be45324dc76bebb4555838b9cf98cfde0e5e34fb2849a",
+    "development_factor_diagnostics.csv": "5effb9e87a54b3b54d4196398892b61a1118f000a2676d936088b027af5f162c",
+    "factor_combination_cumulative_wealth.png": "017a57190bef72c5a6e6591bb887078b2624df1f2d047d072d68100b08d49253",
+    "factor_cost_stress.png": "822423895c78f4f13ab793b7047e64a51a9d7edb1fde86c3f8b45a08ae0e505b",
+    "factor_weights.csv": "2f620082dc046a7a8d25039d7224dc5dc2d81e041fef423d4d67577384a3c133",
+    "monthly_returns.csv": "479eee2913d7354a3d7f536a2e1400cc94a9f5b8dbaf758d605973471c0c808e",
+    "portfolio_summary.csv": "6070066dd82a73f9429ebec13474251b943da8f017d136e56ea0e13f40ef9a79",
+    "protocol.json": "b4b4ffa46b9880ef942f6c60db185ad0b00c70ae6ecc8ae529a63dc3599a7117",
+    "quality_receipt.json": "172db671c4f132e2d218eaceee66e53a305994c4842b05de29bc08e96f12e7ad",
+    "sleeve_weights.csv": "c6ea674853935286545718014064813ee5b0e4556e1d439c3f63929b2460e10c"
+  },
+  "schema": "equity-factor-profitable-factor-artifact-manifest.v1"
+}

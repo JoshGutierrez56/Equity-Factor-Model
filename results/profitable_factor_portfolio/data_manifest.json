@@ -1,0 +1,9 @@
+{
+  "aligned_months": 179,
+  "committed_data_policy": "aggregate monthly portfolio evidence only; no raw factor table, security rows, identifiers, or security-level weights",
+  "factor_source_rows": 432,
+  "factor_source_sha256": "4303b443b3b5b9def041d59bf4a38dc346d05c1834110736a4fc36a4ed3d54bf",
+  "schema": "equity-factor-profitable-factor-data-manifest.v1",
+  "v4_monthly_source_sha256": "e67d65bc1e49addd28c81352d2abc6b342e6da740fd3ae253f88d2c974ec96f4",
+  "v4_source_rows": 1611
+}

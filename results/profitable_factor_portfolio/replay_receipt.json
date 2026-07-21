@@ -1,0 +1,11 @@
+{
+  "schema": "equity-factor-profitable-factor-replay.v1",
+  "status": "PASS",
+  "independent_runs": 2,
+  "artifact_files_compared": 13,
+  "portable_hashes_match": true,
+  "first_artifact_manifest_sha256": "5f74dfa73c4d796403e497910ce013ac7975114575dc2bd9a8145f0f7213b01c",
+  "second_artifact_manifest_sha256": "5f74dfa73c4d796403e497910ce013ac7975114575dc2bd9a8145f0f7213b01c",
+  "newline_normalization": "CRLF and CR are normalized to LF for CSV, JSON, Markdown, and text artifacts",
+  "gpu_used": false
+}

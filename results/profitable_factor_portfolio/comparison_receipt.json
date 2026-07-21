@@ -1,0 +1,16 @@
+{
+  "active_information_ratio_vs_v4": -0.12668643874196403,
+  "all_evidence_retrospective": true,
+  "alpha_classification": "INTENTIONAL_ESTABLISHED_FACTOR_EXPOSURE_NOT_NEW_ALPHA",
+  "classification": "RETROSPECTIVE_FACTOR_DIVERSIFICATION_IMPROVEMENT",
+  "cross_sectional_ic_policy": "combined portfolio has no cross-sectional IC; retain v4 score IC",
+  "factor_implementation_limitation": "academic factor returns plus flat annual haircuts; no security-level factor replication or realized transaction-cost reconstruction",
+  "factor_tilt_information_ratio_vs_equal_factor": 0.6392740096524446,
+  "paired_interval_excludes_zero": false,
+  "primary_factor_cost_bps": 100.0,
+  "profitable_factor_portfolio_sha256": "e403b19d89d027310ea578aa34c71f1d83f97d84d2f7001af96fcd57d76f1dda",
+  "schema": "equity-factor-profitable-factor-comparison.v1",
+  "sharpe_difference_ci_lower": -0.17996919647318643,
+  "sharpe_difference_ci_upper": 1.121162674428191,
+  "sharpe_difference_vs_v4": 0.331969154925292
+}

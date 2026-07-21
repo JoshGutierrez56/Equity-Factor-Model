@@ -155,6 +155,44 @@ aggregate evidence is in
 
 ![Version-4 metric comparison](results/institutional_v4/v4_metric_comparison.png)
 
+## Profitable-factor allocation follow-up
+
+Because v4's factor-residual alpha is economically zero, a final allocation
+study asks a different question: can the portfolio deliberately combine v4
+with established factor premiums more efficiently? This is an explicitly
+retrospective, performance-informed factor-harvesting exercise, not a claim of
+new factor-neutral alpha.
+
+Factor weights use 1990-2019 data only: 50% equal weight plus 50% normalized
+positive development Sharpe across MKT-RF, SMB, HML, RMW, CMA, and UMD, capped
+at 30% per factor. A 2010-2019 inverse-volatility rule then assigns 31.2% to v4
+net returns and 68.8% to the factor sleeve. The primary result applies a
+conservative 100-bp annual implementation haircut to the academic factor
+returns.
+
+| Matched 2021-2024 result | V4 net | Factor sleeve | Combined unlevered | Combined 2x diagnostic |
+|---|---:|---:|---:|---:|
+| Sharpe | 0.694 | 0.820 | **1.026** | **1.026** |
+| CAGR | 5.31% | 4.28% | 4.69% | **9.36%** |
+| Annualized volatility | 7.91% | 5.28% | 4.58% | 9.15% |
+| Maximum drawdown | -12.39% | -6.74% | **-6.43%** | -12.57% |
+
+The factor tilt's IR versus an otherwise identical equal-factor combination is
+0.639. Its active IR versus v4 is -0.127 because diversification increased
+risk-adjusted performance while slightly reducing average return. The paired
+12-month block interval for the 0.332 Sharpe improvement over v4 is -0.180 to
+1.121, so the improvement is **not statistically confirmed**. The combined
+portfolio has no separate cross-sectional IC; v4's 5.60% 12-month rank IC
+remains the applicable stock-selection diagnostic.
+
+Complete factor weights, 0/50/100/150-bp cost stresses, aggregate monthly
+returns, protocol, receipts, and charts are in
+[`results/profitable_factor_portfolio/`](results/profitable_factor_portfolio/README.md).
+
+![Profitable-factor cumulative wealth](results/profitable_factor_portfolio/factor_combination_cumulative_wealth.png)
+
+![Profitable-factor cost stress](results/profitable_factor_portfolio/factor_cost_stress.png)
+
 The prospective ledger starts in 2025 and remains `NOT_STARTED`: WRDS supplied
 data only through December 2024. At least 36 genuinely new, never-inspected
 months are required before any prospective conclusion is allowed.
@@ -257,6 +295,7 @@ python run_wrds_model.py --scope retrospective --refresh
 python run_portfolio_engineering.py
 python run_institutional_v3.py
 python run_institutional_v4.py
+python run_profitable_factor_portfolio.py
 ```
 
 Security-level licensed rows are written only beneath ignored `data/private/`.
@@ -288,11 +327,13 @@ run_wrds_model.py            # frozen real-data study and evidence writer
 run_portfolio_engineering.py # separately frozen implementation experiment
 run_institutional_v3.py      # daily-risk/cost-aware institutional experiment
 run_institutional_v4.py      # development-IC ensemble and holding-buffer follow-up
+run_profitable_factor_portfolio.py # established-premium allocation follow-up
 src/factors/wrds_data.py     # bounded CRSP/Compustat acquisition
 src/factors/real_model.py    # PIT signals, inference, portfolios, diagnostics
 src/factors/portfolio_engineering.py # risk, constraints, turnover, bootstrap
 src/factors/institutional_v3.py # shrinkage covariance, optimizer, costs
 src/factors/institutional_v4.py # ensemble, hysteresis, capacity, residual IR
+src/factors/profitable_factor_portfolio.py # factor tilt, sleeve mix, cost stress
 results/wrds_real_data/      # primary aggregate evidence and protocol
 results/portfolio_engineering/ # implementation evidence and integrity receipt
 results/institutional_v3/    # frozen v3 aggregate evidence
