@@ -1,0 +1,14 @@
+{
+  "artifacts": {
+    "README.md": "ec35245d563ac82b7b155232e3323e043fd3b90dd4c43e8eeefa6444fd77cf4d",
+    "comparison_receipt.json": "786896ef465c5e6d777fcfc81852521d9ffe7af58308e678d11e1bc0075be5ce",
+    "coverage_receipt.json": "366529cc9078fc94a2bf663fa22556da28d75d84749c656dc8f12a46f8936f66",
+    "monthly_overlay_returns.csv": "1b34961c69350b566e8ebc2af2abea445f6737d610b077ed726b3ff21d70bf9d",
+    "overlay_cumulative_wealth.png": "398f7fb8525c8b4241392ea35c214e6ddd73c87472706d5218086d62bf79995e",
+    "preflight_receipt.json": "8fc8bdcee3808d378e1c1ab538be0387a030eb2ca5c4f00d44cc5ae4423642f0",
+    "protocol.json": "1b2a1d1aa6b9f97b92ec586df4d826e0b8acfad8721c6974a29e44a6e54f85f3",
+    "request_plan.csv": "149ae60d3ca218cabb89a94ff8aee4372dc19e3403ceb8fb633c799e65615768",
+    "strategy_summary.csv": "3c1b7f9c0398bb8cc4722a8d092198c783476443e08fc596355b970cb778273d"
+  },
+  "schema": "equity-factor-spy-options-artifacts.v1"
+}

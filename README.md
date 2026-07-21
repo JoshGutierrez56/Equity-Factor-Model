@@ -193,6 +193,55 @@ returns, protocol, receipts, and charts are in
 
 ![Profitable-factor cost stress](results/profitable_factor_portfolio/factor_cost_stress.png)
 
+## Executable ETF proxy and SPY options overlay
+
+The academic factor allocation is not directly tradable, so a fifth extension
+freezes a simple long-only retail mapping before downloading ETF outcomes:
+21.98% SPY, 12.01% IWM, 12.91% VLUE, 35.91% QUAL, and 17.19% MTUM. It uses
+monthly close-to-close rebalancing, no leverage or shorting, and a primary
+10-bp one-way turnover cost.
+
+| 2021-2025 ETF result | Fixed factor-ETF proxy | Equal-weight factor ETFs | SPY |
+|---|---:|---:|---:|
+| Sharpe | **0.809** | 0.765 | **0.965** |
+| CAGR | 12.00% | 11.39% | **14.34%** |
+| Annualized volatility | 15.57% | 15.75% | **15.14%** |
+| Maximum drawdown | -25.85% | -25.35% | **-23.93%** |
+
+The fixed tilt beat equal weighting with a 0.333 active IR, but underperformed
+SPY with a -0.775 active IR. Its paired block interval for the Sharpe difference
+versus SPY is -0.311 to -0.050. This is useful executable evidence, but it does
+not support replacing the market benchmark with the factor basket.
+
+The separately frozen club extension overlays beta-scaled SPY options on the
+ETF proxy. It uses 35-49 DTE, fixed deltas, one same expiration, exact-contract
+exit matching, bid/ask execution, $0.65-per-contract fees, no naked options,
+and no outcome-aware substitutions. ORATS returned executable entry and exit
+quotes for all 59 planned months.
+
+| Covered 2021-2025 months | ETF only | + 25/10-delta put spread | + 25/15-delta collar |
+|---|---:|---:|---:|
+| Sharpe | 0.815 | **0.870** | 0.588 |
+| CAGR | **12.21%** | 11.12% | 5.89% |
+| Annualized volatility | 15.69% | 13.14% | **10.72%** |
+| Maximum drawdown | -25.85% | -19.58% | **-19.29%** |
+
+The put spread improved the retrospective Sharpe and drawdown, but its active
+IR was -0.420 because the hedge reduced average return. The collar's active IR
+was -1.157 and its premium/upside drag was too large. These are risk-overlay
+results, not alpha results or a recommendation to trade options.
+
+Complete public-price evidence is in
+[`results/retail_etf_proxy/`](results/retail_etf_proxy/README.md). Aggregate
+ORATS-derived evidence is in
+[`results/spy_options_overlay/`](results/spy_options_overlay/README.md). Raw
+public price rows, licensed ORATS chains, exact contract identities, and API
+credentials remain beneath ignored `data/private/` storage.
+
+![ETF proxy cumulative wealth](results/retail_etf_proxy/cumulative_wealth.png)
+
+![Options overlay cumulative wealth](results/spy_options_overlay/overlay_cumulative_wealth.png)
+
 The prospective ledger starts in 2025 and remains `NOT_STARTED`: WRDS supplied
 data only through December 2024. At least 36 genuinely new, never-inspected
 months are required before any prospective conclusion is allowed.
@@ -296,6 +345,10 @@ python run_portfolio_engineering.py
 python run_institutional_v3.py
 python run_institutional_v4.py
 python run_profitable_factor_portfolio.py
+python run_retail_etf_proxy.py
+python run_spy_options_overlay.py --plan-only
+# Set ORATS_API_TOKEN locally, then run the licensed exact-contract study:
+python run_spy_options_overlay.py
 ```
 
 Security-level licensed rows are written only beneath ignored `data/private/`.
@@ -319,6 +372,12 @@ returns, coverage, quality receipts, and hashes of the private inputs.
   negative.
 - Retrospective support is not live performance. The prospective result remains
   unopened and unavailable.
+- The retail ETF mapping is approximate: QUAL absorbs both profitability and
+  conservative-investment weights, and long-only ETFs cannot reproduce
+  academic long-short factors exactly.
+- The options overlay assumes fractional hedge-contract economics, omits taxes
+  and assignment operations, and is retrospective despite using executable
+  bid/ask quotes and exact contracts.
 
 ## Repository map
 
@@ -328,16 +387,22 @@ run_portfolio_engineering.py # separately frozen implementation experiment
 run_institutional_v3.py      # daily-risk/cost-aware institutional experiment
 run_institutional_v4.py      # development-IC ensemble and holding-buffer follow-up
 run_profitable_factor_portfolio.py # established-premium allocation follow-up
+run_retail_etf_proxy.py      # no-leverage long-only ETF translation
+run_spy_options_overlay.py   # frozen ORATS put-spread and collar study
 src/factors/wrds_data.py     # bounded CRSP/Compustat acquisition
 src/factors/real_model.py    # PIT signals, inference, portfolios, diagnostics
 src/factors/portfolio_engineering.py # risk, constraints, turnover, bootstrap
 src/factors/institutional_v3.py # shrinkage covariance, optimizer, costs
 src/factors/institutional_v4.py # ensemble, hysteresis, capacity, residual IR
 src/factors/profitable_factor_portfolio.py # factor tilt, sleeve mix, cost stress
+src/factors/retail_etf_proxy.py # ETF mapping, turnover costs, benchmarks
+src/factors/spy_options_overlay.py # exact-contract selection and execution
 results/wrds_real_data/      # primary aggregate evidence and protocol
 results/portfolio_engineering/ # implementation evidence and integrity receipt
 results/institutional_v3/    # frozen v3 aggregate evidence
 results/institutional_v4/    # frozen v4 aggregate evidence
+results/retail_etf_proxy/    # public-price executable-proxy evidence
+results/spy_options_overlay/ # aggregate licensed-options evidence
 run_model.py                 # deterministic credential-free CI demonstration
 tests/                       # data, inference, security, and artifact contracts
 ```

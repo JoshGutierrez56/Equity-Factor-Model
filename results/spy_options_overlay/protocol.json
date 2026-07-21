@@ -1,0 +1,114 @@
+{
+  "acceptance_and_claim_policy": [
+    "Coverage below 80% is reported as insufficient and is never silently backfilled.",
+    "Report both overlays even if one or both reduce Sharpe or CAGR.",
+    "No outcome-aware delta, DTE, strategy, or sizing changes are permitted in the primary run.",
+    "The options overlay is a club research extension, not a recommendation to trade options or invest personal money."
+  ],
+  "credential_contract": {
+    "canonical_environment_variable": "ORATS_API_TOKEN",
+    "deprecated_fallback": "ORATS_TOKEN",
+    "token_must_never_be_logged_or_committed": true
+  },
+  "experiment_classification": "RETROSPECTIVE_DEFINED_RISK_OPTIONS_OVERLAY",
+  "frozen_at_utc": "2026-07-21T04:31:00Z",
+  "locked_comparisons_and_metrics": {
+    "metrics": [
+      "CAGR",
+      "annualized volatility",
+      "Sharpe ratio",
+      "maximum drawdown",
+      "downside deviation",
+      "Sortino ratio",
+      "5% monthly expected shortfall",
+      "option premium drag",
+      "coverage and attrition",
+      "active information ratio versus ETF underlying"
+    ],
+    "strategies": [
+      "ETF underlying only",
+      "ETF plus put spread",
+      "ETF plus collar"
+    ]
+  },
+  "locked_contract_tie_breaks": [
+    "expiration DTE closest to 42",
+    "absolute delta distance",
+    "lowest spread-to-midpoint",
+    "highest open interest",
+    "highest volume",
+    "lowest strike"
+  ],
+  "locked_costs_and_request_budget": {
+    "bid_ask_execution_is_primary": true,
+    "broker_fee_usd_per_contract_per_trade": 0.65,
+    "checkpoint_frequency_months": 5,
+    "contract_multiplier": 100,
+    "maximum_live_orats_requests": 120,
+    "raw_provider_rows": "ignored local cache only",
+    "request_plan": "at most one entry chain and one exit chain for each of 59 monthly observations"
+  },
+  "locked_entry_and_exit": {
+    "assessment_entries": "last trading-day close of each month from 2021-01 through 2025-11",
+    "entry_dte_window": [
+      35,
+      49
+    ],
+    "entry_long_price": "ask",
+    "entry_short_price": "bid",
+    "exit": "next month-end close using the exact same ticker, expiration, strike, and option side",
+    "exit_dte_query_tolerance_days": 2,
+    "exit_long_price": "bid",
+    "exit_short_price": "ask",
+    "expired_contract": "intrinsic value from SPY close on expiration or the last available trading close before expiration",
+    "minimum_open_interest": 1,
+    "same_expiration_required_for_all_legs": true,
+    "substitution": "no nearby-strike, expiration, ticker, or date substitution",
+    "target_dte": 42,
+    "zero_bid_long_exit": "executable at zero"
+  },
+  "locked_strategies": {
+    "collar": {
+      "legs": [
+        {
+          "option_type": "put",
+          "side": "long",
+          "target_delta": -0.25
+        },
+        {
+          "option_type": "call",
+          "side": "short",
+          "target_delta": 0.15
+        }
+      ],
+      "purpose": "finance downside protection by capping upside"
+    },
+    "put_spread": {
+      "legs": [
+        {
+          "option_type": "put",
+          "side": "long",
+          "target_delta": -0.25
+        },
+        {
+          "option_type": "put",
+          "side": "short",
+          "target_delta": -0.1
+        }
+      ],
+      "purpose": "defined-risk downside hedge"
+    }
+  },
+  "locked_underlying_and_sizing": {
+    "hedge_ratio": "ETF basket beta to SPY estimated once using monthly 2013-07-18 through 2019-12-31 returns",
+    "leverage": false,
+    "naked_short_options": false,
+    "notional": "one SPY-share-equivalent per beta-adjusted ETF portfolio notional; fractional-contract economics for research",
+    "option_underlying": "SPY",
+    "underlying_portfolio": "primary 10-bp monthly retail ETF proxy"
+  },
+  "parent_protocol": "retail_etf_proxy_protocol.json",
+  "provider": "ORATS historical strikes API",
+  "schema": "equity-factor-spy-options-overlay-protocol.v1",
+  "status": "FROZEN_BEFORE_ORATS_OUTCOME_PULL"
+}
